@@ -117,6 +117,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:scrollbars="none"
         android:text=" User name already exists"
         android:textColor="#ee1144"
         android:visibility="gone"
