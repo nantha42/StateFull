@@ -1,71 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/blue"
-    android:divider="@android:color/black"
-    android:dividerHeight="8dp">
-
-    <LinearLayout
-        android:id="@+id/clock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10:30"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/ampm"
-            android:layout_width="wrap_content"
-            android:layout_height="40sp"
-            android:text="am" />
-
-
-    </LinearLayout>
+    android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:id="@+id/buttons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="24dp"
-        android:orientation="vertical">
-
-        <Switch
-            android:id="@+id/a_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="24dp" />
+        android:id="@+id/view_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/custom_thought_item_bg">
 
         <ImageView
-            android:id="@+id/delete_reminder"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/a_switch"
+            android:id="@+id/delete_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_delete_white_24dp" />
 
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_delete_black_24dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@id/delete_icon"
+            android:text="Delete"
+            android:textColor="#fff"
+            android:textSize="13dp" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/textView"
+    <RelativeLayout
+        android:id="@+id/view_foreground"
         android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_below="@id/buttons"
-        android:background="@android:color/white"
-        android:text=""
-        android:textColor="@android:color/white" />
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/custom_reminder_item">
+
+        <LinearLayout
+            android:id="@+id/clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10:30"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/ampm"
+                android:layout_width="wrap_content"
+                android:layout_height="40sp"
+                android:text="am" />
 
 
-</RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="24dp"
+            android:orientation="vertical">
+
+            <Switch
+                android:id="@+id/a_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="24dp" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</FrameLayout>

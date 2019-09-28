@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="176dp"
-    android:background="#00aa22"
+
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingLeft="16dp"
@@ -12,25 +12,23 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:paddingTop="8dp"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@drawable/ic_04_happy" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="StateFull"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#ffffff" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="\@Nanthak"
-        android:textColor="#ffffff" />
+        android:text="\@Nanthak" />
 
 
 </LinearLayout>
