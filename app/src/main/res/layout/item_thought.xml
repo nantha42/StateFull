@@ -33,7 +33,7 @@
         android:id="@+id/view_foreground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_thought_item">
+        android:background="@color/allitembg">
 
         <LinearLayout
             android:layout_width="match_parent"

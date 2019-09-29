@@ -129,7 +129,6 @@ public class NotificationScheduler {
                 oneIsActive = true;
             }
         }
-
         do {
             int index = 0;
             for (Reminder r : reminders) {

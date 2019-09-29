@@ -8,9 +8,9 @@
     <color name="AppBar">#69F0AE</color>
     <color name="maintheme">#6669F0AE</color>
 
-
-    <color name="thought_bg_start">#F9A825</color>
-    <color name="thought_bg_end">#F9A825</color>
+    <color name="allitembg">#FAF3F3</color>
+    <color name="thought_bg_start">#B2DFDB</color>
+    <color name="thought_bg_end">#B2DFDB</color>
 
     <color name="greyGreen">#aaFFFF</color>
     <color name="state_black">#444444</color>
@@ -18,7 +18,9 @@
     <color name="state_mood_bar_color">#00BFA5</color>
     <color name="thoughtboxcolor">#3369F0AE</color>
     <color name="todaybackground">#0D69F0AE</color>
-    <color name="bg_row_background">#fa315b</color>
+    <color name="bg_row_background">
+        #fa315b
+    </color>
     <color name="item_name">#535353</color>
     <color name="description">#a9a9a9</color>
     <color name="t_color_blue">#1E90FF</color>
