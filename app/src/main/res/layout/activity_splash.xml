@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    android:background="#444444"
+    android:background="@drawable/login_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".SplashActivity">
 
         <TextView
@@ -16,7 +17,7 @@
             android:layout_marginBottom="8dp"
             android:text="State Full"
             android:textAlignment="center"
-            android:textColor="#ffffff"
+            android:textColor="#555555"
             android:textSize="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +32,7 @@
             android:layout_marginEnd="8dp"
             android:fontFamily="serif-monospace"
             android:text="Know Yourself"
-            android:textColor="#ffffff"
+            android:textColor="#555555"
             android:textSize="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

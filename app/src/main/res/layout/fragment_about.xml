@@ -2,7 +2,9 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    >
 
     <TextView
         android:id="@+id/textView2"
@@ -12,7 +14,7 @@
         android:layout_marginTop="112dp"
         android:layout_marginEnd="8dp"
         android:text="StateFull"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#039BE5"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -39,8 +41,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
+        android:fontFamily="@font/caudex"
         android:text="@string/about"
         android:textAlignment="center"
+        android:textColor="#F0090808"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

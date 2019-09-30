@@ -2,6 +2,7 @@ package com.example.statefull;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -136,12 +137,23 @@ public class StateFragment extends Fragment implements MoodDialogFragment.MoodDi
             moodYValues.add(barEntry);
 
             i++;
-        }
-        moodYValues.add(new BarEntry(i, 0));
-        //colors.add(Color.WHITE);
 
         BarDataSet dtset = new BarDataSet(moodYValues, "Moods");
-        dtset.setColor(Color.CYAN);
+        moodYValues.add(new BarEntry(i, 0));
+        //colors.add(Color.WHITE);
+        if (val < 6) {
+            dtset.setColors(Color.RED);
+        } else if (val < 12) {
+            dtset.setColors(Color.CYAN);
+        } else if (val < 14) {
+            dtset.setColors(Color.YELLOW);
+        } else if (val < 20) {
+            dtset.setColors(Color.GREEN);
+        } else {
+            dtset.setColors(Color.MAGENTA);
+        }
+        //dtset.setColors(new int[] {Color.RED, Color.GREEN, Color.GRAY, Color.BLACK, Color.BLUE});
+
         dtset.setBarBorderWidth(1f);
         dtset.setValueTextColor(Color.BLACK);
         dtset.setValueTextSize(5);
@@ -151,8 +163,12 @@ public class StateFragment extends Fragment implements MoodDialogFragment.MoodDi
         barChart.setMaxVisibleValueCount(6);
         barChart.getAxisLeft().setTextColor(Color.WHITE);
         barChart.getXAxis().setTextColor(Color.WHITE);
-        barChart.canScrollHorizontally(BarChart.SCROLL_AXIS_HORIZONTAL);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            barChart.canScrollHorizontally(BarChart.SCROLL_AXIS_HORIZONTAL);
+        }
         barChart.animateXY(800, 500);
+
+    }
 
     }
 
@@ -179,7 +195,9 @@ public class StateFragment extends Fragment implements MoodDialogFragment.MoodDi
         dayBarChart.setMaxVisibleValueCount(6);
         dayBarChart.getAxisLeft().setTextColor(Color.WHITE);
         dayBarChart.getXAxis().setTextColor(Color.WHITE);
-        dayBarChart.canScrollHorizontally(BarChart.SCROLL_AXIS_HORIZONTAL);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            dayBarChart.canScrollHorizontally(BarChart.SCROLL_AXIS_HORIZONTAL);
+        }
         dayBarChart.animateXY(800, 500);
 
     }
