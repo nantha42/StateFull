@@ -22,13 +22,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String TABLE_NAME1 = "User";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_USERNAME = "name";
-    private static final String COLUMN_PASSWORD="password";
+    private static final String COLUMN_PASSWORD = "password";
     private static final String COLUMN_EMAIL = "email";
 
-    private static final String TABLE_NAME2="Data";
+    private static final String TABLE_NAME2 = "Data";
     private static final String COLUMN_USERID = "Userid";
-    private static final String COLUMN_TIME="time";
-    private static final String COLUMN_VALUE="mood";
+    private static final String COLUMN_TIME = "time";
+    private static final String COLUMN_VALUE = "mood";
 
     private static final String TABLE_NAME3 = "Variables";
     private static final String COLUMN_LOGGED = "logged";
@@ -38,6 +38,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String REMINDER_TABLE = "Reminder";
     private static final String COLUMN_REMINDER_TIME = "time";
     private static final String COLUMN_MERIDIAN = "meridian";
+    private static final String COLUMN_REMINDER_MILLI = "millis";
     private static final String COLUMN_ISACTIVE = "active";
 
     private static final String HAPPINESS_TABLE = "Happy";
@@ -48,10 +49,23 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String COLUMN_REGISTER_TIME = "Time";
     private static final String COLUMN_MOODVALUE = "mood";
 
+    private static final String THOUGHTS_TABLE = "THOUGHTS";
+    private static final String COLUMN_THOUGHT = "THOUGHT";
+    private static final String COLUMN_DAY_ID = "DAY_ID";
+    private static final String COLUMN_THOUGHT_COLOR = "COLOR";
+
+    private static final String DAY_TABLE = "DAYS";
+    private static final String COLUMN_DATE = "Date";
+    private static final String COLUMN_THOUGHT_TIME = "TIME";
+
+    private static final String ENERGY_TABLE = "Energy";
+    private static final String COLUMN__REGISTER_TIME = "Time";
+    private static final String COLUMN_ENERGYVALUE = "Energy";
+
 
     static DatabaseManager databaseManager = null;
 
-    DatabaseManager(Context context){
+    DatabaseManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         databaseManager = this;
     }
@@ -68,14 +82,23 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String sql2 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, %s INTEGER, %s Boolean, %s DATE, %s DATE);",
                 TABLE_NAME3, COLUMN_USERID, COLUMN_LOGGED, COLUMN_LOG_TIME, COLUMN_LAST_LOG);
 
-        String sql3 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, %s Text,  %s Text,  %s Integer);",
-                REMINDER_TABLE, COLUMN_REMINDER_TIME, COLUMN_MERIDIAN, COLUMN_ISACTIVE);
+        String sql3 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, %s Text,%s FLOAT , %s Text,  %s Integer);",
+                REMINDER_TABLE, COLUMN_REMINDER_TIME, COLUMN_REMINDER_MILLI, COLUMN_MERIDIAN, COLUMN_ISACTIVE);
 
         String sql4 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, %s Date, %s Integer);",
                 HAPPINESS_TABLE, COLUMN_HTIME, COLUMN_HVALUE);
 
-        String sql5 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, %s LONG, %s Integer);)",
-                MOOD_TABLE, COLUMN_REGISTER_TIME, COLUMN_MOODVALUE);
+        String sql7 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, %s TEXT);",
+                DAY_TABLE, COLUMN_DATE);
+
+        String sql6 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, %s TEXT,%s TEXT,%s TEXT ,%s INTEGER, FOREIGN KEY(%s) REFERENCES %s (%s));",
+                THOUGHTS_TABLE, COLUMN_THOUGHT, COLUMN_THOUGHT_COLOR, COLUMN_THOUGHT_TIME, COLUMN_DAY_ID, COLUMN_DAY_ID, DAY_TABLE, "_id");
+
+        String sql8 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, %s LONG, %s Integer,%s Integer, FOREIGN KEY(%s) REFERENCES %s (%s));",
+                ENERGY_TABLE, COLUMN__REGISTER_TIME, COLUMN_ENERGYVALUE, COLUMN_DAY_ID, COLUMN_DAY_ID, DAY_TABLE, "_id");
+
+        String sql5 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, %s LONG, %s Integer,%s Integer, FOREIGN KEY(%s) REFERENCES %s (%s));",
+                MOOD_TABLE, COLUMN_REGISTER_TIME, COLUMN_MOODVALUE, COLUMN_DAY_ID, COLUMN_DAY_ID, DAY_TABLE, "_id");
 
         sqLiteDatabase.execSQL(sql);
         sqLiteDatabase.execSQL(sql1);
@@ -83,6 +106,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sql3);
         sqLiteDatabase.execSQL(sql4);
         sqLiteDatabase.execSQL(sql5);
+        sqLiteDatabase.execSQL(sql7);
+        sqLiteDatabase.execSQL(sql6);
+        sqLiteDatabase.execSQL(sql8);
+
     }
 
     @Override
@@ -99,13 +126,18 @@ public class DatabaseManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sql);
         sql = String.format("DROP TABLE IF EXISTS %s;", MOOD_TABLE);
         sqLiteDatabase.execSQL(sql);
+        sql = String.format("DROP TABLE IF EXISTS %s;", THOUGHTS_TABLE);
+        sqLiteDatabase.execSQL(sql);
+        sql = String.format("DROP TABLE IF EXISTS %s;", DAY_TABLE);
+        sqLiteDatabase.execSQL(sql);
+
         onCreate(sqLiteDatabase);
     }
 
     boolean addUser(String name, String password, String mail) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_USERNAME,name);
-        contentValues.put(COLUMN_PASSWORD,password);
+        contentValues.put(COLUMN_USERNAME, name);
+        contentValues.put(COLUMN_PASSWORD, password);
         contentValues.put(COLUMN_EMAIL, mail);
         SQLiteDatabase db = getWritableDatabase();
         return db.insert(TABLE_NAME1, null, contentValues) != -1;
@@ -169,9 +201,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     int isUser(String name, String pass) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor =  db.rawQuery("SELECT * FROM " + TABLE_NAME1, null);
-        if(cursor.moveToFirst()){
-            do{
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME1, null);
+        if (cursor.moveToFirst()) {
+            do {
                 String mail_ = cursor.getString(3);
                 String pass_ = cursor.getString(2);
                 if (mail_.equals(name) && pass_.equals(pass)) {
@@ -187,11 +219,19 @@ public class DatabaseManager extends SQLiteOpenHelper {
     void fabAddReminder(int h, int m, String merd) {
         ContentValues contentValues = new ContentValues();
         String time = h + ":" + m;
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        date.setHours(h + (merd.equals("AM") ? 0 : 12));
+        date.setMinutes(m);
+        date.setSeconds(0);
+
         contentValues.put(COLUMN_REMINDER_TIME, time);
         contentValues.put(COLUMN_MERIDIAN, merd);
+        contentValues.put(COLUMN_REMINDER_MILLI, date.getTime());
         contentValues.put(COLUMN_ISACTIVE, "1");
 
         getWritableDatabase().insert(REMINDER_TABLE, null, contentValues);
+
         Cursor g = getReadableDatabase().rawQuery("Select * from " + REMINDER_TABLE, null);
         if (g.moveToFirst()) {
             do {
@@ -201,6 +241,15 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
+    public void editReminder(int id, int hourOfDay, int minute, String meridian) {
+        ContentValues contentValues = new ContentValues();
+        String time = hourOfDay + ":" + minute;
+        contentValues.put("_id", id);
+        contentValues.put(COLUMN_REGISTER_TIME, time);
+        contentValues.put(COLUMN_MERIDIAN, meridian);
+        contentValues.put(COLUMN_ISACTIVE, "1");
+        getWritableDatabase().update(REMINDER_TABLE, contentValues, "_id = ? ", new String[]{Integer.toString(id)});
+    }
     void negatereminder(int p) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery("Select " + COLUMN_ISACTIVE + " from " + REMINDER_TABLE + " where _id=" + p, null);
@@ -230,7 +279,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     List<Reminder> getReminders() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + REMINDER_TABLE, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + REMINDER_TABLE + " ORDER BY " + COLUMN_REMINDER_MILLI + " ASC", null);
         List<Reminder> reminders = new ArrayList<Reminder>();
         if (cursor.moveToFirst()) {
             do {
@@ -246,30 +295,111 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 Reminder temp = new Reminder(h, m, merd, isactive);
                 temp._id = id;
                 reminders.add(temp);
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         return reminders;
     }
 
-    void moodEntry(long time, int val) {
+    void moodEntry(long time, int val, int day_id) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_REGISTER_TIME, time);
         contentValues.put(COLUMN_MOODVALUE, val);
+        contentValues.put(COLUMN_DAY_ID, day_id);
         getWritableDatabase().insert(MOOD_TABLE, null, contentValues);
     }
 
-    TreeMap<Long, Integer> getMoodEntries() {
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + MOOD_TABLE, null);
+    TreeMap<Long, Integer> getMoodEntries(int day_id) {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + MOOD_TABLE + " WHERE " + COLUMN_DAY_ID + " = " + day_id, null);
         TreeMap<Long, Integer> entries = new TreeMap<>();
         if (cursor.moveToFirst()) {
             do {
                 long t = Long.parseLong(cursor.getString(cursor.getColumnIndex(COLUMN_REGISTER_TIME)));
                 int v = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_MOODVALUE)));
+
                 entries.put(t, v);
             } while (cursor.moveToNext());
             cursor.close();
         }
+        Log.d("Entries Lenght", "" + entries.size());
         return entries;
+    }
+
+    int addToday() {
+        Calendar calendar = Calendar.getInstance();
+        Date day = calendar.getTime();
+        int date = day.getDate();
+        int month = day.getMonth();
+        int year = day.getYear();
+        String current_date = date + " " + month + " " + (1900 + year);
+        String query = String.format("SELECT * FROM %s WHERE %s = \"%s\"", DAY_TABLE, COLUMN_DATE, current_date);
+        Cursor cursor = getWritableDatabase().rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String id = cursor.getString(0);
+                cursor.close();
+                return Integer.parseInt(id);
+            } while (cursor.moveToNext());
+        } else {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(COLUMN_DATE, current_date);
+            getWritableDatabase().insert(DAY_TABLE, null, contentValues);
+            return addToday();
+        }
+    }
+
+    int getToDay(int day_id) {
+
+
+        Calendar calendar = Calendar.getInstance();
+        Date day = calendar.getTime();
+        int date = day.getDate();
+        int month = day.getMonth();
+        int year = day.getYear();
+        String current_date = date + " " + month + " " + (1900 + year);
+        String query = String.format("SELECT * FROM %s WHERE %s = \"%s\"", DAY_TABLE, COLUMN_DATE, current_date);
+        Cursor cursor = getWritableDatabase().rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            int id = Integer.parseInt(cursor.getString(0));
+            cursor.close();
+            return id;
+        } else {
+            cursor.close();
+            return -1;
+        }
+
+        /*else{
+            String query = String.format("SELECT * FROM %s WHERE %s = %s", DAY_TABLE, "_id", ""+day_id);
+            Cursor cursor = getWritableDatabase().rawQuery(query, null);
+            if (cursor.moveToFirst()) {
+                int id = Integer.parseInt(cursor.getString(0));
+                cursor.close();
+                return id;
+            } else {
+                cursor.close();
+                return -1;
+            }
+        }*/
+
+    }
+
+    void addThought(int k, String body, int color) {
+        ContentValues contentValue = new ContentValues();
+        contentValue.put(COLUMN_THOUGHT, body);
+        contentValue.put(COLUMN_THOUGHT_COLOR, color);
+        contentValue.put(COLUMN_THOUGHT_TIME, Long.toString(Calendar.getInstance().getTimeInMillis()));
+
+        contentValue.put(COLUMN_DAY_ID, k);
+        getWritableDatabase().insert(THOUGHTS_TABLE, null, contentValue);
+    }
+
+    void justForTest() {
+        Cursor cursor = getWritableDatabase().rawQuery("SELECT * FROM " + THOUGHTS_TABLE, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Log.d("Thought(" + cursor.getString(0) + ")", cursor.getString(1));
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
     }
 
     TreeMap<String, List<Integer>> getDailyAverage() {
@@ -305,5 +435,49 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
         return perDay;
     }
+
+    public List<Thought> getThoughts(int day_id) {
+        if (day_id != -1) {
+            List<Thought> thoughts = new ArrayList<Thought>();
+            Cursor cursor = getWritableDatabase().rawQuery("SELECT * FROM " + THOUGHTS_TABLE + " WHERE " + COLUMN_DAY_ID + " = " + day_id, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    String id = cursor.getString(0);
+                    String body = cursor.getString(cursor.getColumnIndex(COLUMN_THOUGHT));
+                    int color = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_THOUGHT_COLOR)));
+                    Calendar calendar = Calendar.getInstance();
+                    String time = cursor.getString(cursor.getColumnIndex(COLUMN_THOUGHT_TIME));
+                    Date date = calendar.getTime();
+                    date.setTime(Long.parseLong(time));
+                    int hour = date.getHours();
+                    String k = "AM";
+                    if (hour > 12) {
+                        hour = hour - 12;
+                        k = "PM";
+                    }
+                    String u = hour + ":" + date.getMinutes() + " " + k;
+                    Thought thought = new Thought(Integer.parseInt(id), body);
+                    thought.thoughtColor = color;
+                    thought.setText(body);
+                    thought.setTime(u);
+                    thoughts.add(thought);
+                } while (cursor.moveToNext());
+            }
+            return thoughts;
+        } else {
+            return new ArrayList<Thought>();
+        }
+    }
+
+    void removeThought(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(THOUGHTS_TABLE, "_id = ?", new String[]{Integer.toString(id)});
+    }
+
+    public int getThoughtsCount(int day_id) {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + THOUGHTS_TABLE + " WHERE " + COLUMN_DAY_ID + " = " + day_id, null);
+        return cursor.getCount();
+    }
+
 
 }

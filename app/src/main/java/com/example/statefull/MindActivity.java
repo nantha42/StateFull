@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -16,15 +15,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
-
 public class MindActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawer;
     NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mind);
-
+        int id = 0;
+        if (getIntent() != null) {
+            Log.d("Start dialog", "" + getIntent().getStringExtra("EXTRA_START_DIALOG"));
+        }
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -36,8 +38,8 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StateFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_states);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TodayFragment(-1)).commit();
+            navigationView.setCheckedItem(R.id.nav_today);
         }
     }
 
@@ -53,7 +55,7 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
@@ -83,14 +85,16 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Log.d("Called", "ONNavigationItemSelected" + menuItem.getItemId());
         switch (menuItem.getItemId()) {
-            case R.id.nav_states:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StateFragment()).commit();
-                navigationView.setCheckedItem(R.id.nav_states);
+            case R.id.nav_today:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TodayFragment(-1)).commit();
+                navigationView.setCheckedItem(R.id.nav_today);
                 break;
-            case R.id.nav_levels:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LevelsFragment()).commit();
-                navigationView.setCheckedItem(R.id.nav_levels);
+
+            case R.id.nav_diary:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DiaryFragment()).commit();
+                navigationView.setCheckedItem(R.id.nav_diary);
                 break;
+
             case R.id.nav_reminders:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReminderFragment()).commit();
                 navigationView.setCheckedItem(R.id.nav_reminders);
@@ -99,9 +103,7 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutFragment()).commit();
                 navigationView.setCheckedItem(R.id.nav_about);
                 break;
-            case R.id.nav_send:
-                Toast.makeText(this, "Sending", Toast.LENGTH_SHORT);
-                break;
+
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

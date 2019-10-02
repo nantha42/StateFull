@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -16,22 +15,22 @@ import java.util.List;
 
 interface onSwitchListener {
     void onSwitchClick(int position);
+
+    void onTimeClick(int id, String time);
 }
 
-interface onDeleteListener {
-    void onDeleteClick(int position);
-}
+
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
 
     List<Reminder> reminders;
     onSwitchListener slistener;
-    onDeleteListener dlistener;
 
-    ReminderAdapter(List<Reminder> reminders, onSwitchListener switchListener, onDeleteListener deleteListener) {
+
+    ReminderAdapter(List<Reminder> reminders, onSwitchListener switchListener) {
         this.reminders = reminders;
         slistener = switchListener;
-        dlistener = deleteListener;
+
     }
 
     @NonNull
@@ -65,10 +64,8 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         holder.viewid = reminder._id;
         holder.time.setText(time);
         holder.meridian.setText(reminder.meridian);
-
         Log.d("Switch status", Boolean.toString(reminder.active));
         holder.aSwitch.setChecked(reminder.active);
-
     }
 
     @Override
@@ -83,27 +80,31 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         TextView time;
         TextView meridian;
         Switch aSwitch;
-        ImageView delete;
+
+        View viewForeground;
+        View viewBackground;
 
         public ViewHolder(View itemView) {
             super(itemView);
             time = itemView.findViewById(R.id.time);
             meridian = itemView.findViewById(R.id.ampm);
             aSwitch = itemView.findViewById(R.id.a_switch);
-            delete = itemView.findViewById(R.id.delete_reminder);
             aSwitch.setOnClickListener(this);
-            delete.setOnClickListener(this);
+            time.setOnClickListener(this);
+            viewBackground = itemView.findViewById(R.id.view_background);
+            viewForeground = itemView.findViewById(R.id.view_foreground);
         }
 
         @Override
         public void onClick(View view) {
             if (view.getId() == R.id.a_switch) {
+                Log.d("Started Click", "Here");
                 slistener.onSwitchClick(viewid);
-            } else if (view.getId() == R.id.delete_reminder) {
-                dlistener.onDeleteClick(viewid);
+                Log.d("Finished Click", "Here");
+
+            } else if (view.getId() == R.id.time) {
+                slistener.onTimeClick(viewid, time.getText().toString());
             }
         }
     }
-
-
 }

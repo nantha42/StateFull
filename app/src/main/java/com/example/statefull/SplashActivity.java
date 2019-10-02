@@ -15,13 +15,16 @@ public class SplashActivity extends AppCompatActivity {
         Thread thread = new Thread() {
             public void run() {
                 try {
-                    sleep(1000);
+                    sleep(400);
                     Log.d("isitLogged", isitLogged() ? "true" : "false");
                     if (isitLogged()) {
+                        Log.d("Calling", "MindActivity");
                         Intent intent = new Intent(SplashActivity.this, MindActivity.class);
+
                         startActivity(intent);
                         finish();
                     } else {
+                        Log.d("Calling", "MainActivity");
                         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();

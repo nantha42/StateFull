@@ -5,27 +5,46 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_states"
-            android:icon="@drawable/ic_mood_black_24dp"
-            android:title="States" />
+            android:id="@+id/heading_stats"
+            android:title="Stats">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_today"
+                        android:icon="@drawable/ic_polymer_black_24dp"
+                        android:title="Today" />
+
+                    <item
+                        android:id="@+id/nav_diary"
+                        android:icon="@drawable/ic_diary_24dp"
+                        android:title="Journal" />
+
+                    <item
+                        android:id="@+id/nav_insight"
+                        android:icon="@drawable/ic_insert_emoticon_black_24dp"
+                        android:title="Insights" />
+
+                </group>
+            </menu>
+        </item>
         <item
-            android:id="@+id/nav_levels"
-            android:icon="@drawable/ic_hormones_black_24dp"
-            android:title="Levels" />
-        <item
-            android:id="@+id/nav_reminders"
-            android:icon="@drawable/ic_reminder_24dp"
-            android:title="Reminder" />
-        <item
-            android:id="@+id/nav_send"
-            android:icon="@drawable/ic_menu_send"
-            android:title="Send" />
-        <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/ic_about_24dp"
-            android:title="About" />
+            android:id="@+id/heading_others"
+            android:title="Others">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_reminders"
+                        android:icon="@drawable/ic_reminder_24dp"
+                        android:title="Reminder" />
+
+                    <item
+                        android:id="@+id/nav_about"
+                        android:icon="@drawable/ic_about_24dp"
+                        android:title="About" />
+                </group>
+            </menu>
+        </item>
 
     </group>
-
 
 </menu>
