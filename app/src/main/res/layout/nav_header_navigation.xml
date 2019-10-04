@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="176dp"
-    android:background="@color/thoughtboxcolor"
+    android:background="@color/colorAccent"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingLeft="16dp"
@@ -22,12 +22,14 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="StateFull"
+        android:textColor="@color/alltextcolor"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/alltextcolor"
         android:text="\@Nanthak" />
 
 

@@ -2,9 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/maintheme"
+    android:background="@color/analysiscolorbg"
     tools:context=".MoodFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,16 +31,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="8dp"
+            android:text="Good"
+            android:textSize="30dp"
+            android:textColor="@color/alltextcolor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mood_exibhitor" />
+
+        <Button
+            android:id="@+id/more_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Good"
-            android:textSize="30dp"
+            android:background="@drawable/complex_mood_button_bg"
+            android:text="more details"
+            android:padding="12dp"
+            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mood_exibhitor"
-            app:layout_constraintVertical_bias="0.125" />
+            app:layout_constraintTop_toBottomOf="@+id/mood_name"
+            app:layout_constraintVertical_bias="0.545" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_mood_done"

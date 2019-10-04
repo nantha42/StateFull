@@ -1,5 +1,6 @@
 package com.example.statefull;
 
+
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,8 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -21,32 +25,30 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
-public class AnalysisFragment extends Fragment {
-    int day_id;
+public class ReviewFragment extends Fragment {
+
+    int dayId;
     PieChart averageChart;
     BarChart dailyHistory;
-    CallAnotherFragment mCaller;
-
-    TreeMap<Long, Integer> moods = new TreeMap<>();
+    List<String> date;
     ArrayList<PieEntry> averageEntries = new ArrayList<>();
     ArrayList<BarEntry> historyEntries = new ArrayList<>();
     ArrayList<String> names = new ArrayList<>();
+    TreeMap<Long, Integer> moods = new TreeMap<>();
 
-
-    AnalysisFragment(int id, CallAnotherFragment caller) {
-        if (id == -1)
-            this.day_id = DatabaseManager.databaseManager.getToDay(day_id);
-        else
-            this.day_id = id;
-        mCaller = caller;
+    public ReviewFragment(int id) {
+        // Required empty public constructor
+        dayId = id;
+        date = DatabaseManager.databaseManager.getDay(dayId);
     }
 
     void initPieGraph() {
         Log.d("InitGraph ", "Called");
         averageEntries.clear();
-        moods = DatabaseManager.databaseManager.getMoodEntries(day_id);
+        moods = DatabaseManager.databaseManager.getMoodEntries(dayId);
         TreeMap<Integer, Integer> countofmoods = new TreeMap<Integer, Integer>();
         for (int i = 0; i < 15; i++) {
             countofmoods.put(i, 0);
@@ -85,13 +87,11 @@ public class AnalysisFragment extends Fragment {
         dataSet.setValueTextSize(0);
 
         averageChart.setData(pieData);
-        averageChart.setCenterText("Today Average");
+        averageChart.setCenterText("All of your Moods");
         averageChart.setCenterTextColor(Color.BLUE);
         averageChart.setCenterTextSize(20);
-        averageChart.getLegend().setTextColor(Color.WHITE);
         averageChart.animateXY(2000, 2000);
         averageChart.setEntryLabelColor(Color.BLACK);
-
         //averageChart.setEntryLabelTextSize();
     }
 
@@ -107,7 +107,7 @@ public class AnalysisFragment extends Fragment {
 
     private void initBarGraph() {
         historyEntries.clear();
-        moods = DatabaseManager.databaseManager.getMoodEntries(day_id);
+        moods = DatabaseManager.databaseManager.getMoodEntries(dayId);
         ArrayList<Integer> requiredColors = new ArrayList<>();
         int i = 0;
         int[] colors = initiateColors();
@@ -123,13 +123,11 @@ public class AnalysisFragment extends Fragment {
         data.setBarWidth(0.9f);
         YAxis yaxis = dailyHistory.getAxisLeft();
         YAxis yaxis1 = dailyHistory.getAxisRight();
-        dailyHistory.getXAxis().setTextColor(Color.WHITE);
         yaxis.setDrawGridLinesBehindData(false);
         yaxis.setDrawGridLines(false);
-        yaxis.setTextColor(Color.WHITE);
+
         yaxis.setAxisMaximum(20);
         yaxis1.setDrawLabels(false);
-        dailyHistory.getLegend().setTextColor(Color.WHITE);
         dailyHistory.animateXY(4000, 2000);
         dailyHistory.setData(data);
 
@@ -157,13 +155,22 @@ public class AnalysisFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_analysis, container, false);
-        averageChart = view.findViewById(R.id.piecharttoday);
-        dailyHistory = view.findViewById(R.id.barcharttoday);
-        this.initPieGraph();
-        this.initBarGraph();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_review, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.rvreview);
+        ReviewAdapter adapter = new ReviewAdapter(dayId);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        averageChart = view.findViewById(R.id.rvpiecharttoday);
+        dailyHistory = view.findViewById(R.id.rvbarcharttoday);
+        TextView rdate = view.findViewById(R.id.reviewdate);
+        TextView rmonth = view.findViewById(R.id.reviewmonth);
+        rdate.setText(date.get(0));
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        rmonth.setText(months[Integer.parseInt(date.get(1))]);
+        initPieGraph();
+        initBarGraph();
         return view;
     }
-
 }

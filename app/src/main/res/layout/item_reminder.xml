@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="4dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -48,10 +49,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10:30"
+                android:textColor="@color/alltextcolor"
                 android:textSize="40sp" />
 
             <TextView
                 android:id="@+id/ampm"
+                android:textColor="@color/alltextcolor"
                 android:layout_width="wrap_content"
                 android:layout_height="40sp"
                 android:text="am" />
@@ -64,8 +67,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="24dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="36dp"
             android:orientation="vertical">
 
             <Switch

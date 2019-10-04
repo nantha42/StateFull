@@ -1,159 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
 
-    android:background="@color/thoughtboxcolor">
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
 
+        android:background="@color/analysiscolorbg">
 
-        android:layout_marginTop="56dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintTop_toBottomOf="@id/container_editthought">
-
-        <TextView
-            android:id="@+id/what_color_text"
+        <ScrollView
+            android:layout_marginTop="55dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingLeft="16dp"
-            android:text="What color will suit this thought?"
-            android:textSize="16sp"
-            android:textStyle="bold|italic" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/what_color_text"
-            android:layout_marginTop="2dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="8dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/blue"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="@dimen/tag_spacing"
-                android:background="@drawable/blue_circle"
-                android:contentDescription="blue" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/container_editthought"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="56dp"
 
-            <ImageButton
-                android:id="@+id/red"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="@dimen/tag_spacing"
-                android:background="@drawable/red_circle" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/orange"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="@dimen/tag_spacing"
-                android:background="@drawable/orange_circle" />
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="center"
+                        android:text="What's in your head?"
+                        android:textColor="@color/alltextcolor"
+                        android:textSize="16sp"
+                        android:textStyle="bold|italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/yellow"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="@dimen/tag_spacing"
-                android:background="@drawable/yellow_circle" />
+                    <EditText
+                        android:id="@+id/thoughtbody"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginStart="8dp"
 
-            <ImageButton
-                android:id="@+id/green"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="@dimen/tag_spacing"
-                android:background="@drawable/green_circle" />
+                        android:layout_marginEnd="8dp"
+                        android:cursorVisible="true"
+                        android:fontFamily="casual"
+                        android:gravity="start|top"
+                        android:hint="I am grateful to..."
+                        android:inputType="textMultiLine"
+                        android:padding="8dp"
+                        android:scrollbars="vertical"
+                        android:textStyle="bold"
+                        android:textColor="@color/alltextcolor"
+                        android:textColorHint="#888888"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView7"
+                        app:layout_constraintVertical_bias="0.0" />
 
-            <ImageButton
-                android:id="@+id/magenta"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="@dimen/tag_spacing"
-                android:background="@drawable/magenta_circle" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageButton
-                android:id="@+id/white"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="@dimen/tag_spacing"
-                android:background="@drawable/white_circle" />
+                <RelativeLayout
+                    android:id="@+id/relativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-        </LinearLayout>
 
-    </RelativeLayout>
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintTop_toBottomOf="@id/container_editthought">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container_editthought"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+                    <TextView
+                        android:id="@+id/what_color_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="16dp"
+                        android:text="What color will suit this thought?"
+                        android:textColor="@color/alltextcolor"
+                        android:textSize="16sp"
+                        android:textStyle="bold|italic" />
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/what_color_text"
+                        android:layout_marginTop="2dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center"
-            android:text="What's in your head?"
-            android:textSize="16sp"
-            android:textStyle="bold|italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                        <ImageButton
+                            android:id="@+id/blue"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginEnd="@dimen/tag_spacing"
+                            android:background="@drawable/blue_circle"
+                            android:contentDescription="blue" />
 
-        <EditText
-            android:id="@+id/thoughtbody"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
+                        <ImageButton
+                            android:id="@+id/red"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginEnd="@dimen/tag_spacing"
+                            android:background="@drawable/red_circle" />
+
+                        <ImageButton
+                            android:id="@+id/orange"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginEnd="@dimen/tag_spacing"
+                            android:background="@drawable/orange_circle" />
+
+                        <ImageButton
+                            android:id="@+id/yellow"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginEnd="@dimen/tag_spacing"
+                            android:background="@drawable/yellow_circle" />
+
+                        <ImageButton
+                            android:id="@+id/green"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginEnd="@dimen/tag_spacing"
+                            android:background="@drawable/green_circle" />
+
+                        <ImageButton
+                            android:id="@+id/magenta"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginEnd="@dimen/tag_spacing"
+                            android:background="@drawable/magenta_circle" />
+
+                        <ImageButton
+                            android:id="@+id/white"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginEnd="@dimen/tag_spacing"
+                            android:background="@drawable/white_circle" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36dp"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_lightbulb_outline_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/tips"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Guidelines"
+                            android:textColor="@color/alltextcolor"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:textColor="@color/alltextcolor"
+                    android:text="Use the color that will suit your moods.\nFor Example, Choose color \nRed for thoughts that are negative,\n Green for positive thoughts and\n Blue for executive and action thoughts."
+                    android:textAlignment="center"
+                    android:textSize="16dp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_done"
+            android:layout_width="56dp"
+            android:layout_height="58dp"
+            android:layout_gravity="bottom|end"
             android:layout_marginStart="8dp"
-
             android:layout_marginEnd="8dp"
-            android:cursorVisible="true"
-            android:fontFamily="casual"
-            android:gravity="start|top"
-            android:hint="I feel rewarded of..."
-            android:inputType="textMultiLine"
-            android:overScrollMode="always"
-            android:padding="8dp"
-            android:scrollbars="vertical"
-            android:textStyle="bold"
-
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_done_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_done"
-        android:layout_width="56dp"
-        android:layout_height="58dp"
-        android:layout_gravity="bottom|end"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_done_black_24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

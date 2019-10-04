@@ -1,13 +1,11 @@
 package com.example.statefull;
 
-import java.util.List;
-
 public class DayData {
-    List<Thought> thoughts;
-    List<Integer> moodData;
+    int id;
+    String date;
 
-    DayData(int day, int month, int year) {
-        //thoughts = DatabaseManager.databaseManager.getDayThoughts();
-        //moodData = DatabaseManager.databaseManager.getMoodData();
+    DayData(int id, String date) {
+        this.id = id;
+        this.date = date;
     }
 }

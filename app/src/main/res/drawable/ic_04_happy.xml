@@ -4,24 +4,24 @@
     android:viewportWidth="368"
     android:viewportHeight="368">
     <path
-        android:fillColor="#CCE4FF"
+        android:fillColor="@color/face_fill"
         android:pathData="M184,8c97.2,0 176,78.8 176,176s-78.8,176 -176,176S8,281.2 8,184S86.8,8 184,8zM264,216H104c0,44.16 35.84,80 80,80S264,260.16 264,216zM264,136c0,-8.8 -7.2,-16 -16,-16s-16,7.2 -16,16s7.2,16 16,16S264,144.8 264,136zM136,136c0,-8.8 -7.2,-16 -16,-16s-16,7.2 -16,16s7.2,16 16,16S136,144.8 136,136z" />
     <path
-        android:fillColor="#CCE4FF"
+        android:fillColor="@color/face_fill"
         android:pathData="M248,136m-16,0a16,16 0,1 1,32 0a16,16 0,1 1,-32 0" />
     <path
-        android:fillColor="#CCE4FF"
+        android:fillColor="@color/face_fill"
         android:pathData="M120,136m-16,0a16,16 0,1 1,32 0a16,16 0,1 1,-32 0" />
     <path
-        android:fillColor="#007AFF"
+        android:fillColor="@color/face_outline"
         android:pathData="M248,160c13.232,0 24,-10.768 24,-24s-10.768,-24 -24,-24s-24,10.768 -24,24S234.768,160 248,160zM248,128c4.416,0 8,3.592 8,8s-3.584,8 -8,8s-8,-3.592 -8,-8S243.584,128 248,128z" />
     <path
-        android:fillColor="#007AFF"
+        android:fillColor="@color/face_outline"
         android:pathData="M120,160c13.232,0 24,-10.768 24,-24s-10.768,-24 -24,-24s-24,10.768 -24,24S106.768,160 120,160zM120,128c4.416,0 8,3.592 8,8s-3.584,8 -8,8s-8,-3.592 -8,-8S115.584,128 120,128z" />
     <path
-        android:fillColor="#007AFF"
+        android:fillColor="@color/face_outline"
         android:pathData="M184,368c101.464,0 184,-82.544 184,-184S285.464,0 184,0S0,82.544 0,184S82.536,368 184,368zM184,16c92.632,0 168,75.36 168,168s-75.368,168 -168,168S16,276.64 16,184S91.368,16 184,16z" />
     <path
-        android:fillColor="#007AFF"
+        android:fillColor="@color/face_outline"
         android:pathData="M184,304c48.52,0 88,-39.48 88,-88c0,-4.416 -3.576,-8 -8,-8H104c-4.424,0 -8,3.584 -8,8C96,264.52 135.48,304 184,304zM255.552,224C251.56,259.952 221,288 184,288s-67.56,-28.048 -71.552,-64H255.552z" />
 </vector>

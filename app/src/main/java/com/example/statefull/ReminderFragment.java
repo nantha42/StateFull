@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,7 +37,6 @@ public class ReminderFragment extends Fragment implements onSwitchListener, Recy
         rvReminders.setAdapter(adapter);
         rvReminders.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         rvReminders.setItemAnimator(new DefaultItemAnimator());
-        rvReminders.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerReminderItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(rvReminders);
 

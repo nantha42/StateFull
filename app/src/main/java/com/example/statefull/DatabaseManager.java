@@ -241,6 +241,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
+    public String getLatestThought(int dayId) {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT " + COLUMN_THOUGHT + " FROM " + THOUGHTS_TABLE + " where " + COLUMN_DAY_ID + " = " + dayId + " ORDER BY _id DESC", null);
+        if (cursor.moveToFirst()) {
+            String j = cursor.getString(0);
+            cursor.close();
+            return j;
+        } else return "";
+    }
     public void editReminder(int id, int hourOfDay, int minute, String meridian) {
         ContentValues contentValues = new ContentValues();
         String time = hourOfDay + ":" + minute;
@@ -275,6 +283,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
     int getReminderTableSize() {
         SQLiteDatabase db = getReadableDatabase();
         return (int) DatabaseUtils.queryNumEntries(db, REMINDER_TABLE);
+    }
+
+    int getDayTableSize() {
+        SQLiteDatabase db = getReadableDatabase();
+        return (int) DatabaseUtils.queryNumEntries(db, DAY_TABLE);
     }
 
     List<Reminder> getReminders() {
@@ -347,6 +360,52 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
     }
 
+    List<DayData> getDays() {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + DAY_TABLE + " ORDER BY _id DESC ", null);
+        ArrayList<DayData> days = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                int id = Integer.parseInt(cursor.getString(0));
+                String date = cursor.getString(1);
+                DayData dayData = new DayData(id, date);
+                days.add(dayData);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return days;
+    }
+
+    float getDayMiniReport(int id) {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT " + COLUMN_MOODVALUE + " FROM " + MOOD_TABLE + " WHERE " + COLUMN_DAY_ID + " = " + id, null);
+        float count = 0;
+        float npos = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                int val = 16 - Integer.parseInt(cursor.getString(0));
+                if (val > 10) {
+                    npos++;
+                }
+                count++;
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        Log.d("nC", count + " " + npos);
+        return npos / count;
+    }
+
+    List<String> getDay(int id) {
+        Cursor cursor = getWritableDatabase().rawQuery("SELECT " + COLUMN_DATE + " FROM " + DAY_TABLE + " WHERE _id = " + id, null);
+        if (cursor.moveToFirst()) {
+            String date = cursor.getString(0);
+            String[] components = date.split(" ");
+            List<String> retval = new ArrayList<>();
+            retval.add(components[0]);
+            retval.add(components[1]);
+            return retval;
+        } else {
+            return null;
+        }
+    }
     int getToDay(int day_id) {
 
 
@@ -439,7 +498,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public List<Thought> getThoughts(int day_id) {
         if (day_id != -1) {
             List<Thought> thoughts = new ArrayList<Thought>();
-            Cursor cursor = getWritableDatabase().rawQuery("SELECT * FROM " + THOUGHTS_TABLE + " WHERE " + COLUMN_DAY_ID + " = " + day_id, null);
+            Cursor cursor = getWritableDatabase().rawQuery("SELECT * FROM " + THOUGHTS_TABLE + " WHERE " + COLUMN_DAY_ID + " = " + day_id + " ORDER BY _id DESC", null);
             if (cursor.moveToFirst()) {
                 do {
                     String id = cursor.getString(0);

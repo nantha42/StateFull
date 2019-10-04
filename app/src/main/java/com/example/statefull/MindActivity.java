@@ -12,10 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class MindActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MindActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, itemClickListener {
     DrawerLayout drawer;
     NavigationView navigationView;
 
@@ -80,10 +81,13 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Log.d("Called", "ONNavigationItemSelected" + menuItem.getItemId());
+        FragmentManager fm = getSupportFragmentManager();
+        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStack();
+        }
         switch (menuItem.getItemId()) {
             case R.id.nav_today:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TodayFragment(-1)).commit();
@@ -99,13 +103,18 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReminderFragment()).commit();
                 navigationView.setCheckedItem(R.id.nav_reminders);
                 break;
+
             case R.id.nav_about:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutFragment()).commit();
                 navigationView.setCheckedItem(R.id.nav_about);
                 break;
-
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onNoteClick(int id) {
+        Log.d("Clickedfine", id + " ");
     }
 }
