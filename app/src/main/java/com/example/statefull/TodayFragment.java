@@ -81,9 +81,18 @@ public class TodayFragment extends Fragment implements CallAnotherFragment, Save
             Calendar calendar = Calendar.getInstance();
             long time = calendar.getTimeInMillis();
             DatabaseManager.databaseManager.moodEntry(time, currentMood, day_id);
+            if(paramsChanged(params))
+                DatabaseManager.databaseManager.charactEntry(time,params,day_id);
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.popBackStackImmediate();
         }
+    }
+    public boolean paramsChanged(PersonalityParams p){
+        if(p==null)
+            return false;
+        if(p.satisfaction==30 && p.energy==30 && p.enthusiasm==30 && p.ambition==30 && p.confidence==30)
+            return false;
+        else return true;
     }
 
     public void onCreate(Bundle savedInstance) {
@@ -124,7 +133,6 @@ public class TodayFragment extends Fragment implements CallAnotherFragment, Save
 
 
     private void setUpViewPager(ViewPager viewPager) {
-
         Adapter adapter = new Adapter(getChildFragmentManager());
         thoughtFragment = new ThoughtFragment(id, this);
         analysisFragment = new AnalysisFragment(id, this);
@@ -154,7 +162,6 @@ public class TodayFragment extends Fragment implements CallAnotherFragment, Save
         public void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
-
         }
 
         @Override

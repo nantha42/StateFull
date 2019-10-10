@@ -18,7 +18,7 @@ import java.util.TreeMap;
 public class DatabaseManager extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Master";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String TABLE_NAME1 = "User";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_USERNAME = "name";
@@ -62,6 +62,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String COLUMN__REGISTER_TIME = "Time";
     private static final String COLUMN_ENERGYVALUE = "Energy";
 
+    private static final String CHARACT_TABLE = "Characteristics";
+    private static final String COLUMN_SATISFACTION = "satisfaction";
+    private static final String COLUMN_CONFIDENCE = "confidence";
+    private static final String COLUMN_ENTHUSIASM = "enthusiasm";
+    private static final String COLUMN_AMBITION = "ambition";
+    private static final String COLUMN_ENERGY = "energy";
 
     static DatabaseManager databaseManager = null;
 
@@ -100,6 +106,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String sql5 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, %s LONG, %s Integer,%s Integer, FOREIGN KEY(%s) REFERENCES %s (%s));",
                 MOOD_TABLE, COLUMN_REGISTER_TIME, COLUMN_MOODVALUE, COLUMN_DAY_ID, COLUMN_DAY_ID, DAY_TABLE, "_id");
 
+
         sqLiteDatabase.execSQL(sql);
         sqLiteDatabase.execSQL(sql1);
         sqLiteDatabase.execSQL(sql2);
@@ -114,6 +121,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        /*
         String sql = String.format("DROP TABLE IF EXISTS %s;", TABLE_NAME1);
         sqLiteDatabase.execSQL(sql);
         sql = String.format("DROP TABLE IF EXISTS %s;", TABLE_NAME2);
@@ -130,8 +138,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sql);
         sql = String.format("DROP TABLE IF EXISTS %s;", DAY_TABLE);
         sqLiteDatabase.execSQL(sql);
+        */
+        if(i<3){
+            String sql9 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,%s LONG, %s Integer,%s Integer,%s Integer,%s Integer,%s Integer,%s Integer);",
+                    CHARACT_TABLE,COLUMN_TIME,COLUMN_SATISFACTION,COLUMN_CONFIDENCE,COLUMN_ENTHUSIASM,COLUMN_AMBITION,COLUMN_ENERGY,COLUMN_DAY_ID);
+            sqLiteDatabase.execSQL(sql9);
+        }
 
-        onCreate(sqLiteDatabase);
     }
 
     boolean addUser(String name, String password, String mail) {
@@ -231,7 +244,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
         contentValues.put(COLUMN_ISACTIVE, "1");
 
         getWritableDatabase().insert(REMINDER_TABLE, null, contentValues);
-
         Cursor g = getReadableDatabase().rawQuery("Select * from " + REMINDER_TABLE, null);
         if (g.moveToFirst()) {
             do {
@@ -320,6 +332,17 @@ public class DatabaseManager extends SQLiteOpenHelper {
         contentValues.put(COLUMN_DAY_ID, day_id);
         getWritableDatabase().insert(MOOD_TABLE, null, contentValues);
     }
+    void charactEntry(long time,PersonalityParams p,int day_id){
+        ContentValues contentValues  = new ContentValues();
+        contentValues.put(COLUMN_TIME,time);
+        contentValues.put(COLUMN_SATISFACTION,p.satisfaction);
+        contentValues.put(COLUMN_CONFIDENCE,p.confidence);
+        contentValues.put(COLUMN_ENTHUSIASM,p.enthusiasm);
+        contentValues.put(COLUMN_AMBITION,p.ambition);
+        contentValues.put(COLUMN_ENERGY,p.energy);
+        contentValues.put(COLUMN_DAY_ID,day_id);
+        getWritableDatabase().insert(CHARACT_TABLE,null,contentValues);
+    }
 
     TreeMap<Long, Integer> getMoodEntries(int day_id) {
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + MOOD_TABLE + " WHERE " + COLUMN_DAY_ID + " = " + day_id, null);
@@ -407,8 +430,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
             return null;
         }
     }
-    int getToDay(int day_id) {
 
+    int getToDay(int day_id) {
 
         Calendar calendar = Calendar.getInstance();
         Date day = calendar.getTime();

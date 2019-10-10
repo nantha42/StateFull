@@ -135,7 +135,7 @@ public class ReviewFragment extends Fragment {
                 lists.add(lastmoodval);
             }
             else{
-                lists.add(lastmoodval);
+                lists.add(0);
             }
         }
         for(int i=0;i<lists.size();i++){
@@ -165,7 +165,7 @@ public class ReviewFragment extends Fragment {
 
         yaxis.setAxisMaximum(20);
         yaxis1.setDrawLabels(false);
-        dailyHistory.animateXY(4000, 2000);
+        dailyHistory.animateY(1500);
         dailyHistory.setData(data);
     }
 

@@ -71,7 +71,7 @@ public class AnalysisFragment extends Fragment {
                 historyEntries.add(new BarEntry(i,16-time_converted_moods.get(i)));
             }
             else{
-                historyEntries.add(new BarEntry(i,lastmoodval));
+                historyEntries.add(new BarEntry(i,0));
             }
         }
         TreeMap<Integer, Integer> countofmoods = new TreeMap<Integer, Integer>();
@@ -114,7 +114,7 @@ public class AnalysisFragment extends Fragment {
         averageChart.setCenterTextColor(Color.BLUE);
         averageChart.setCenterTextSize(20);
         averageChart.getLegend().setTextColor(Color.WHITE);
-        averageChart.animateXY(2000, 2000);
+        averageChart.animateY(500);
         averageChart.setEntryLabelColor(Color.BLACK);
 
         //averageChart.setEntryLabelTextSize();
@@ -149,11 +149,14 @@ public class AnalysisFragment extends Fragment {
         int lastmoodval = 0;
         for(int i=0;i<=curperiod;i++){
             if(time_converted_moods.containsKey(i)){
-                lastmoodval = 16-time_converted_moods.get(i);
-                historyEntries.add(new BarEntry(i,16-time_converted_moods.get(i)));
+
+                if(time_converted_moods.get(i)!=0) {
+                    lastmoodval = 16-time_converted_moods.get(i);
+                    historyEntries.add(new BarEntry(i, 16 - time_converted_moods.get(i)));
+                }
             }
             else{
-                historyEntries.add(new BarEntry(i,lastmoodval));
+                historyEntries.add(new BarEntry(i,0));
             }
         }
 
@@ -184,7 +187,7 @@ public class AnalysisFragment extends Fragment {
         yaxis.setAxisMaximum(20);
         yaxis1.setDrawLabels(false);
         dailyHistory.getLegend().setTextColor(Color.WHITE);
-        dailyHistory.animateXY(4000, 2000);
+        dailyHistory.animateY(1500);
         dailyHistory.setData(data);
     }
 

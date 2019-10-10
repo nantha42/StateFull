@@ -1,6 +1,7 @@
 package com.example.statefull;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,8 +38,31 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         Thought thought = thoughts.get(position);
         holder.body.setText(thought.getText());
         holder.time.setText(thought.getTime());
-    }
+        if(getColorValue(thought.thoughtColor)!=0)
+            holder.ambience.setBackgroundColor(getColorValue(thought.thoughtColor));
 
+    }
+    int getColorValue(int tcolor){
+        switch(tcolor) {
+            case 0:
+                return Color.parseColor("#CD1E90FF");
+            case 1:
+                return Color.parseColor("#CDD50000");
+            case 2:
+                return Color.parseColor("#CDFF6D00");
+            case 3:
+                return Color.parseColor("#CDFFD600");
+            case 4:
+                return Color.parseColor("#CD00C853");
+            case 5:
+                return Color.parseColor("#CDAA00FF");
+            case 6:
+                return Color.parseColor("#CDFFFFFF");
+            default:
+                return 0;
+        }
+
+    }
     @Override
     public int getItemCount() {
         return thoughts.size();
