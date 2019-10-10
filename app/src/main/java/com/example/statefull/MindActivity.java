@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
@@ -37,6 +38,7 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
                 this, drawer, toolbar, R.string.open_drawer, R.string.close_drawer);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TodayFragment(-1)).commit();
@@ -115,7 +117,9 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
     @Override
     public void onNoteClick(int id) {
         Log.d("Clickedfine", id + " ");

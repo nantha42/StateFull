@@ -1,52 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/analysiscolorbg"
+    android:clipToPadding="false"
+    android:padding="16dp"
+    >
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <RelativeLayout
+        android:id="@+id/barcharttodaylayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/analysiscolorbg"
+        android:elevation="80dp"
+        android:orientation="vertical"
         android:padding="8dp">
 
-        <ScrollView
+        <TextView
+            android:id="@+id/barchartText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp">
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Mood Log"
+            android:textColor="@color/alltextcolor"
+            android:textSize="20sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barcharttoday"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@id/barchartText"
+            android:layout_marginTop="8dp" />
+    </RelativeLayout>
 
 
-                <RelativeLayout
-                    android:id="@+id/barcharttodaylayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/analysiscolorbg"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:id="@+id/barchartText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/alltextcolor"
-                        android:text="Mood Log"
-                        android:textSize="20sp" />
-
-                    <com.github.mikephil.charting.charts.BarChart
-                        android:id="@+id/barcharttoday"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:layout_below="@id/barchartText" />
-
-                </RelativeLayout>
-            </LinearLayout>
-        </ScrollView>
-    </android.support.constraint.ConstraintLayout>
-</FrameLayout>
+</RelativeLayout>

@@ -32,6 +32,7 @@ public class ReminderFragment extends Fragment implements onSwitchListener, Recy
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
         View view = inflater.inflate(R.layout.fragment_reminder, container, false);
         RecyclerView rvReminders = view.findViewById(R.id.rvreminders);
+        ((MindActivity)getActivity()).setActionBarTitle("StateFull");
         reminders = DatabaseManager.databaseManager.getReminders();
         adapter = new ReminderAdapter(reminders, this);
         rvReminders.setAdapter(adapter);
@@ -39,8 +40,6 @@ public class ReminderFragment extends Fragment implements onSwitchListener, Recy
         rvReminders.setItemAnimator(new DefaultItemAnimator());
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerReminderItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(rvReminders);
-
-
         FloatingActionButton fab = view.findViewById(R.id.fab_add);
         if (fab != null)
             fab.setOnClickListener(new View.OnClickListener() {

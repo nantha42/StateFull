@@ -48,7 +48,9 @@ public class TodayFragment extends Fragment implements CallAnotherFragment, Save
     TodayFragment(int id) {
         this.id = id;
     }
-
+    TodayFragment(){
+        this.id = -1;
+    }
     @Override
     public void storeThought(String s, int colorValue) {
 
@@ -105,11 +107,11 @@ public class TodayFragment extends Fragment implements CallAnotherFragment, Save
         View view = inflater.inflate(R.layout.fragment_today, container, false);
         ViewPager viewPager = view.findViewById(R.id.viewpager);
         setUpViewPager(viewPager);
+        ((MindActivity)getActivity()).setActionBarTitle("Today");
         TabLayout tabs = view.findViewById(R.id.result_tabs);
         tabs.setupWithViewPager(viewPager);
         tabs.getTabAt(0).setIcon(R.drawable.ic_writing);
         tabs.getTabAt(1).setIcon(R.drawable.ic_pie_chart_black_24dp);
-
         return view;
     }
 

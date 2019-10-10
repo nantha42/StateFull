@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#673AB7</color>
-    <color name="colorPrimaryDark">#512DA8</color>
-    <color name="colorAccent">#B39DDB</color>
+
+    <color name="colorPrimary">#FF5722</color>
+    <color name="colorPrimaryDark">#E64A19</color>
+    <color name="colorAccent">#9575CD</color>
     <color name="alltextcolor">#CBFFFFFF</color>
     <color name="colorPrimaryb">#673AB7</color>
     <color name="colorPrimaryDarkb">#512DA8</color>
@@ -36,7 +37,7 @@
     <color name="t_color_orange">#CDFF6D00</color>
     <color name="signupcolor">#CD00E676</color>
     <color name="day_entry_color">#CDC8E6C9</color>
-    <color name="face_outline">#CD9575CD</color>
+    <color name="face_outline">@color/colorAccent</color>
     <color name="face_fill">#CDFFFFFF</color>
     <color name="mood_bg">#CDFFF59D</color>
     <color name="item_bg">#CDFFD600</color>

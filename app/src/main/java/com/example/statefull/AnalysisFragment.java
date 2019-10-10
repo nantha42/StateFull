@@ -49,6 +49,10 @@ public class AnalysisFragment extends Fragment {
             this.day_id = id;
         mCaller = caller;
     }
+    AnalysisFragment(){
+        this.day_id=DatabaseManager.databaseManager.getToDay(-1);
+
+    }
 
     void initPieGraph() {
         Log.d("InitGraph ", "Called");

@@ -14,6 +14,7 @@ public class InsightFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_insight,container,false);
+        ((MindActivity)getActivity()).setActionBarTitle("Insight");
         return view;
     }
 }

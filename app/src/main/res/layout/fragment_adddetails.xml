@@ -5,22 +5,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:clipToPadding="false"
     >
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="56dp"
     android:background="@color/analysiscolorbg">
-
+    <TextView
+        android:textColor="@color/alltextcolor"
+        android:gravity="center"
+        android:textSize="24dp"
+        android:text="Add Details"
+        android:padding="4dp"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="56dp">
+        android:layout_marginTop="36dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clipToPadding="false"
+            >
             <RelativeLayout
                 android:id="@+id/relative_satisfaction"
                 android:layout_width="match_parent"
@@ -28,6 +39,7 @@
                 android:layout_below="@id/relative_confidence"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
+                android:elevation="80dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.113"
                 tools:layout_editor_absoluteX="-16dp"
@@ -40,15 +52,26 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:gravity="center"
-                    android:padding="8dp"
+                    android:textStyle="bold|italic"
                     android:text="Satisfaction level"
+                    android:textColor="@color/alltextcolor" />
+                <TextView
+                    android:id="@+id/level_satisfaction_exp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/level_satisfaction"
+                    android:paddingStart="34dp"
+                    android:padding="8dp"
+                    android:text="How satisfied are you at the moment. This satisfaction is the key factor that distinguish successful  and mediocre people"
                     android:textColor="@color/alltextcolor" />
 
                 <SeekBar
                     android:id="@+id/seek_satisfaction"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/level_satisfaction"
+                    android:layout_below="@id/level_satisfaction_exp"
                     android:layout_centerHorizontal="true"
                     android:max="100"
                     android:minWidth="15dp"
@@ -60,7 +83,7 @@
                     android:id="@+id/n_satisfaction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/level_satisfaction"
+                    android:layout_below="@id/level_satisfaction_exp"
                     android:layout_toRightOf="@id/seek_satisfaction"
                     android:text="30"
                     android:textColor="@color/alltextcolor" />
@@ -70,6 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:elevation="80dp"
                 >
 
                 <TextView
@@ -80,15 +104,28 @@
                     android:layout_alignParentEnd="true"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:layout_marginTop="48dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="32dp"
                     android:text="Confidence Level"
+                    android:textColor="@color/alltextcolor" />
+                <TextView
+                    android:id="@+id/level_confidence_exp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/level_confidence"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+
+                    android:paddingStart="32dp"
+                    android:padding="8dp"
+                    android:text="How much confident you are about your future at this moment. Your level of confidnece determines how bold your actions will be"
                     android:textColor="@color/alltextcolor" />
 
                 <SeekBar
                     android:id="@+id/seek_confidence"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/level_confidence"
+                    android:layout_below="@id/level_confidence_exp"
                     android:layout_centerHorizontal="true"
                     android:max="100"
                     android:minWidth="15dp"
@@ -100,7 +137,7 @@
                     android:id="@+id/n_confidence"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/level_confidence"
+                    android:layout_below="@id/level_confidence_exp"
                     android:layout_toRightOf="@id/seek_confidence"
                     android:text="30"
                     android:textColor="@color/alltextcolor" />
@@ -111,7 +148,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/relative_confidence"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="32dp"
+                android:elevation="80dp"
                 android:gravity="center">
 
                 <TextView
@@ -122,14 +160,26 @@
                     android:layout_alignParentEnd="true"
                     android:gravity="center"
                     android:padding="8dp"
+                    android:textStyle="bold"
                     android:text="Enthusiasm Level"
+                    android:textColor="@color/alltextcolor" />
+                <TextView
+                    android:id="@+id/level_enthusiasm_exp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/level_enthusiasm"
+
+                    android:padding="8dp"
+                    android:text="How much enthusiasm you have is the key factor for living a intense life. It shows the amount of love for living and passion in doing things."
                     android:textColor="@color/alltextcolor" />
 
                 <SeekBar
                     android:id="@+id/seek_enthusiasm"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/level_enthusiasm"
+                    android:layout_below="@id/level_enthusiasm_exp"
                     android:layout_centerHorizontal="true"
                     android:max="100"
                     android:minWidth="15dp"
@@ -141,7 +191,7 @@
                     android:id="@+id/n_enthusiasm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/level_enthusiasm"
+                    android:layout_below="@id/level_enthusiasm_exp"
                     android:layout_toRightOf="@id/seek_enthusiasm"
                     android:text="30"
                     android:textColor="@color/alltextcolor" />
@@ -152,7 +202,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/relative_confidence"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="32dp"
+                android:elevation="80dp"
                 android:gravity="center">
 
                 <TextView
@@ -162,15 +213,26 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:gravity="center"
+                    android:textStyle="bold"
                     android:padding="8dp"
                     android:text="Ambition Level"
+                    android:textColor="@color/alltextcolor" />
+                <TextView
+                    android:id="@+id/level_ambitious_exp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/level_ambitious"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:padding="8dp"
+                    android:text="Ambition is the measure of the height of a human. Higher ambitious people get things done and raise above problems and adversites in life."
                     android:textColor="@color/alltextcolor" />
 
                 <SeekBar
                     android:id="@+id/seek_ambitious"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/level_ambitious"
+                    android:layout_below="@id/level_ambitious_exp"
                     android:layout_centerHorizontal="true"
                     android:max="100"
                     android:minWidth="15dp"
@@ -182,7 +244,7 @@
                     android:id="@+id/n_ambitious"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/level_ambitious"
+                    android:layout_below="@id/level_ambitious_exp"
                     android:layout_toRightOf="@id/seek_ambitious"
                     android:text="30"
                     android:textColor="@color/alltextcolor" />
@@ -193,8 +255,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/relative_confidence"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginBottom="70dp"
+                android:elevation="80dp"
                 android:gravity="center">
 
                 <TextView
@@ -207,12 +270,23 @@
                     android:padding="8dp"
                     android:text="Energy level"
                     android:textColor="@color/alltextcolor" />
+                <TextView
+                    android:id="@+id/level_energy_exp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/level_energy"
+
+                    android:padding="8dp"
+                    android:text="Your Energy level is important for accomplishing things. Your energy determines how much healthy and active your are."
+                    android:textColor="@color/alltextcolor" />
 
                 <SeekBar
                     android:id="@+id/seek_energy"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/level_energy"
+                    android:layout_below="@id/level_energy_exp"
                     android:layout_centerHorizontal="true"
                     android:max="100"
                     android:minWidth="15dp"
@@ -224,7 +298,7 @@
                     android:id="@+id/n_energy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/level_energy"
+                    android:layout_below="@id/level_energy_exp"
                     android:layout_toRightOf="@id/seek_energy"
                     android:text="30"
                     android:textColor="@color/alltextcolor" />

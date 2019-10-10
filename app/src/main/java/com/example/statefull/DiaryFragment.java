@@ -23,6 +23,7 @@ public class DiaryFragment extends Fragment implements itemClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
         View view = inflater.inflate(R.layout.fragment_diary, container, false);
+        ((MindActivity)getActivity()).setActionBarTitle("Journal");
         rvjournal = view.findViewById(R.id.rvjournal);
         adapter = new DiaryAdapter(this);
         rvjournal.setAdapter(adapter);

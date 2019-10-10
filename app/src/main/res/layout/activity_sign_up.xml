@@ -34,11 +34,12 @@
         android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:textColor="@color/alltextcolor"
+        android:textColorHint="@color/alltextcolor"
+
         android:background="@color/allitembg"
         android:hint="  User name"
         android:inputType="textPersonName"
-        android:textColor="#000000"
-        android:textColorHint="#444444"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -54,8 +55,9 @@
         android:background="@color/allitembg"
         android:hint="  E-mail"
         android:inputType="textPersonName"
-        android:textColor="#000000"
-        android:textColorHint="#444444"
+        android:textColor="@color/alltextcolor"
+        android:textColorHint="@color/alltextcolor"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/error_username" />
@@ -71,8 +73,8 @@
         android:background="@color/allitembg"
         android:hint="  Password"
         android:inputType="textPassword"
-        android:textColor="#000000"
-        android:textColorHint="#444444"
+        android:textColor="@color/alltextcolor"
+        android:textColorHint="@color/alltextcolor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/error_email" />
@@ -87,8 +89,8 @@
         android:inputType="textPassword"
         android:background="@color/allitembg"
         android:hint="  Retype password"
-        android:textColor="#000000"
-        android:textColorHint="#444444"
+        android:textColor="@color/alltextcolor"
+        android:textColorHint="@color/alltextcolor"
         android:ems="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
