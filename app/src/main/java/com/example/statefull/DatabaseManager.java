@@ -352,7 +352,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 cursor.close();
                 return Integer.parseInt(id);
             } while (cursor.moveToNext());
-        } else {
+        }
+        else {
             ContentValues contentValues = new ContentValues();
             contentValues.put(COLUMN_DATE, current_date);
             getWritableDatabase().insert(DAY_TABLE, null, contentValues);

@@ -25,6 +25,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -53,19 +54,24 @@ public class ReviewFragment extends Fragment {
         for (int i = 0; i < 15; i++) {
             countofmoods.put(i, 0);
         }
+        List<Integer> timeConvertedMoods = getTimeConvertedMoods();
         int i = 0;
         int total = 0;
-        for (long x : moods.keySet()) {
-            int j = moods.get(x);
-            Log.d("Values", x + " " + j);
-            countofmoods.put(j, countofmoods.get(j) + 1);
-            total = total + countofmoods.get(j);
+        Log.d("CountofMoods",""+countofmoods.keySet().size());
+        for (int j=0;j<timeConvertedMoods.size();j++) {
+            int x = timeConvertedMoods.get(j);
+            if(countofmoods.get(x)!=null) {
+
+                countofmoods.put(x, countofmoods.get(x) + 1);
+                total = total + countofmoods.get(x);
+            }else{
+                Log.d("x is null",""+x);
+            }
         }
         initiateNames();
         int[] colors = initiateColors();
         ArrayList<Integer> requiredColors = new ArrayList<>();
         i = 0;
-
         for (int x : countofmoods.keySet()) {
 
             float k = countofmoods.get(x);
@@ -90,12 +96,13 @@ public class ReviewFragment extends Fragment {
         averageChart.setCenterText("All of your Moods");
         averageChart.setCenterTextColor(Color.BLUE);
         averageChart.setCenterTextSize(20);
-        averageChart.animateXY(2000, 2000);
-        averageChart.setEntryLabelColor(Color.BLACK);
+
+        averageChart.animateXY(1000, 1000);
+        averageChart.setEntryLabelColor(Color.WHITE);
         //averageChart.setEntryLabelTextSize();
     }
 
-    private int[] initiateColors() {
+    private int[] initiateColors(){
 
         TypedArray ta = getContext().getResources().obtainTypedArray(R.array.moodcolors);
         int[] colors = new int[ta.length()];
@@ -104,21 +111,51 @@ public class ReviewFragment extends Fragment {
         }
         return colors;
     }
+    int getcurtime(){
+        Date d = new Date();
+        return d.getHours()*6+d.getMinutes()/6;
+    }
+   List<Integer> getTimeConvertedMoods(){
+        moods = DatabaseManager.databaseManager.getMoodEntries(dayId);
 
+        TreeMap<Integer, Integer> time_converted_moods = new TreeMap<>();
+
+        for (long t : moods.keySet()) {
+            Date d = new Date(t);
+            int x = d.getHours() * 6 + (int) (d.getMinutes() / 6);
+            Log.d("Xvalue",x+" "+moods.get(t));
+            time_converted_moods.put(x,moods.get(t));
+        }
+
+        List<Integer> lists = new ArrayList<Integer>();
+        int lastmoodval=0;
+        for(int i=0;i<=144;i++){
+            if(time_converted_moods.containsKey(i)){
+                lastmoodval = 16-time_converted_moods.get(i);
+                lists.add(lastmoodval);
+            }
+            else{
+                lists.add(lastmoodval);
+            }
+        }
+        for(int i=0;i<lists.size();i++){
+            Log.d("List elem "+i,""+lists.get(i));
+        }
+        return lists;
+    }
     private void initBarGraph() {
         historyEntries.clear();
-        moods = DatabaseManager.databaseManager.getMoodEntries(dayId);
-        ArrayList<Integer> requiredColors = new ArrayList<>();
-        int i = 0;
-        int[] colors = initiateColors();
-        for (Long k : moods.keySet()) {
-            requiredColors.add(colors[moods.get(k)]);
-            historyEntries.add(new BarEntry(i, 16 - moods.get(k)));
-            i++;
+        List<Integer> lists = getTimeConvertedMoods();
+        for(int i=0;i<lists.size();i++){
+            Log.d("List elem"+i,""+lists.get(i));
         }
+        for(int i=0;i<lists.size();i++){
+            historyEntries.add(new BarEntry(i,lists.get(i)));
+        }
+
         BarDataSet barDataSet = new BarDataSet(historyEntries, "Today Log");
         barDataSet.setValueTextSize(0);
-        barDataSet.setColors(requiredColors);
+        barDataSet.setColors(Color.rgb(149,117,205));
         BarData data = new BarData(barDataSet);
         data.setBarWidth(0.9f);
         YAxis yaxis = dailyHistory.getAxisLeft();
@@ -130,7 +167,6 @@ public class ReviewFragment extends Fragment {
         yaxis1.setDrawLabels(false);
         dailyHistory.animateXY(4000, 2000);
         dailyHistory.setData(data);
-
     }
 
     private void initiateNames() {

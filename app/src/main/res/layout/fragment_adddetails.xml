@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/analysiscolorbg">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/relative_satisfaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_confidence"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.113"
+                tools:layout_editor_absoluteX="-16dp"
+                >
+
+                <TextView
+                    android:id="@+id/level_satisfaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Satisfaction level"
+                    android:textColor="@color/alltextcolor" />
+
+                <SeekBar
+                    android:id="@+id/seek_satisfaction"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/level_satisfaction"
+                    android:layout_centerHorizontal="true"
+                    android:max="100"
+                    android:minWidth="15dp"
+                    android:minHeight="15dp"
+                    android:padding="8dp"
+                    android:progress="30" />
+
+                <TextView
+                    android:id="@+id/n_satisfaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/level_satisfaction"
+                    android:layout_toRightOf="@id/seek_satisfaction"
+                    android:text="30"
+                    android:textColor="@color/alltextcolor" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relative_confidence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                >
+
+                <TextView
+                    android:id="@+id/level_confidence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:layout_marginTop="48dp"
+                    android:text="Confidence Level"
+                    android:textColor="@color/alltextcolor" />
+
+                <SeekBar
+                    android:id="@+id/seek_confidence"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/level_confidence"
+                    android:layout_centerHorizontal="true"
+                    android:max="100"
+                    android:minWidth="15dp"
+                    android:minHeight="15dp"
+                    android:padding="8dp"
+                    android:progress="30" />
+
+                <TextView
+                    android:id="@+id/n_confidence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/level_confidence"
+                    android:layout_toRightOf="@id/seek_confidence"
+                    android:text="30"
+                    android:textColor="@color/alltextcolor" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_confidence"
+                android:layout_marginTop="48dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/level_enthusiasm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Enthusiasm Level"
+                    android:textColor="@color/alltextcolor" />
+
+                <SeekBar
+                    android:id="@+id/seek_enthusiasm"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/level_enthusiasm"
+                    android:layout_centerHorizontal="true"
+                    android:max="100"
+                    android:minWidth="15dp"
+                    android:minHeight="15dp"
+                    android:padding="8dp"
+                    android:progress="30" />
+
+                <TextView
+                    android:id="@+id/n_enthusiasm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/level_enthusiasm"
+                    android:layout_toRightOf="@id/seek_enthusiasm"
+                    android:text="30"
+                    android:textColor="@color/alltextcolor" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_ambitious"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_confidence"
+                android:layout_marginTop="48dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/level_ambitious"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Ambition Level"
+                    android:textColor="@color/alltextcolor" />
+
+                <SeekBar
+                    android:id="@+id/seek_ambitious"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/level_ambitious"
+                    android:layout_centerHorizontal="true"
+                    android:max="100"
+                    android:minWidth="15dp"
+                    android:minHeight="15dp"
+                    android:padding="8dp"
+                    android:progress="30" />
+
+                <TextView
+                    android:id="@+id/n_ambitious"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/level_ambitious"
+                    android:layout_toRightOf="@id/seek_ambitious"
+                    android:text="30"
+                    android:textColor="@color/alltextcolor" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_energy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_confidence"
+                android:layout_marginTop="48dp"
+                android:layout_marginBottom="70dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/level_energy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Energy level"
+                    android:textColor="@color/alltextcolor" />
+
+                <SeekBar
+                    android:id="@+id/seek_energy"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/level_energy"
+                    android:layout_centerHorizontal="true"
+                    android:max="100"
+                    android:minWidth="15dp"
+                    android:minHeight="15dp"
+                    android:padding="8dp"
+                    android:progress="30" />
+
+                <TextView
+                    android:id="@+id/n_energy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/level_energy"
+                    android:layout_toRightOf="@id/seek_energy"
+                    android:text="30"
+                    android:textColor="@color/alltextcolor" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/details_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_done_black_24dp"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintVertical_bias="-0.1"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>

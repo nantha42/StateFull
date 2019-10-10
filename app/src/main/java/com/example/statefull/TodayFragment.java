@@ -32,7 +32,7 @@ interface SaveThought {
 }
 
 interface SaveMood {
-    void storeMood(int day_id, int currentMood);
+    void storeMood(int day_id, int currentMood,PersonalityParams p);
 }
 
 public class TodayFragment extends Fragment implements CallAnotherFragment, SaveThought, SaveMood {
@@ -70,7 +70,7 @@ public class TodayFragment extends Fragment implements CallAnotherFragment, Save
     }
 
     @Override
-    public void storeMood(int id, int currentMood) {
+    public void storeMood(int id, int currentMood,PersonalityParams params) {
         int day_id = id;
 
         day_id = DatabaseManager.databaseManager.addToday();

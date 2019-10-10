@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <array name="moodcolors" id="@+id/mood_colors">
-        <item name="Awesome">#00B0FF</item>
-        <item name="Cool">#00E5FF</item>
-        <item name="great">#FFEA00</item>
-        <item name="Happy">#FFC400</item>
-        <item name="Good">#FF9100</item>
-        <item name="Blush">#76FF03</item>
-        <item name="Fine">#00E676</item>
-        <item name="Yawn">#1DE9B6</item>
-        <item name="Meh">#D500F9</item>
-        <item name="Bored">#651FFF</item>
-        <item name="Angry">#F50057</item>
-        <item name="Sad">#FF1744</item>
-        <item name="Muted">#C6FF00</item>
-        <item name="Crying">#2979FF</item>
-        <item name="Ill">#33333C</item>
+        <item name="Awesome">#673AB7</item>
+        <item name="Cool">#E600E5FF</item>
+        <item name="great">#E6FFEA00</item>
+        <item name="Happy">#D9FFC400</item>
+        <item name="Good">#CDFF9100</item>
+        <item name="Blush">#D976FF03</item>
+        <item name="Fine">#D900E676</item>
+        <item name="Yawn">#CD1DE9B6</item>
+        <item name="Meh">#CDD500F9</item>
+        <item name="Bored">#CD651FFF</item>
+        <item name="Angry">#CDF50057</item>
+        <item name="Sad">#CDFF1744</item>
+        <item name="Muted">#CDC6FF00</item>
+        <item name="Crying">#CD2979FF</item>
+        <item name="Ill">#CD33333C</item>
     </array>
 </resources>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,14 +15,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-public class MoodFragment extends Fragment {
+interface DetailSaver{
+    void saveDetails(PersonalityParams p);
+}
+public class MoodFragment extends Fragment implements DetailSaver, View.OnClickListener {
     private static final String DEBUG_TAG = "Gestures";
     int day_id;
     SaveMood saver;
     View view;
+    PersonalityParams pParams = null;
+
     int[] allMoods = {R.drawable.ic_01_awesome,
             R.drawable.ic_02_cool,
             R.drawable.ic_03_great,
@@ -51,7 +58,6 @@ public class MoodFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_mood, container, false);
-
         gDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
 
             @Override
@@ -86,12 +92,13 @@ public class MoodFragment extends Fragment {
                 return super.onFling(e1, e2, velocityX, velocityY);
             }
         });
-
+        Button addDetail = view.findViewById(R.id.more_detail);
+        addDetail.setOnClickListener(this);
         FloatingActionButton fabdone = view.findViewById(R.id.fab_add_mood_done);
         fabdone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saver.storeMood(day_id, currentmood);
+                saver.storeMood(day_id, currentmood,pParams);
             }
         });
         view.setOnTouchListener(new View.OnTouchListener() {
@@ -108,7 +115,36 @@ public class MoodFragment extends Fragment {
         mood.setImageResource(allMoods[currentmood]);
         TextView mood_name = view.findViewById(R.id.mood_name);
         mood_name.setText(allMoodsName[currentmood]);
-
     }
 
+    @Override
+    public void saveDetails(PersonalityParams params) {
+        this.pParams = params;
+    }
+
+    @Override
+    public void onClick(View view) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Log.d("Fragments", fragmentTransaction.toString());
+
+        fragmentTransaction.replace(R.id.fragment_container, new AddDetailsFragment(this,pParams));
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+}
+class PersonalityParams{
+    double confidence = .3;
+    double satisfaction = .3;
+    double enthusiasm = .3;
+    double ambition = .3;
+    double energy = .3;
+
+    PersonalityParams(double s,double c,double e,double a,double en){
+        confidence =c;
+        satisfaction = s;
+        enthusiasm = e;
+        energy =en;
+        ambition=a;
+    }
 }
