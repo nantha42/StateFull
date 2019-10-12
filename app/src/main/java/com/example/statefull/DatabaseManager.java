@@ -237,7 +237,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String time = h + ":" + m;
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
-        date.setHours(h + (merd.equals("AM") ? 0 : 12));
+        //date.setHours(h + (merd.equals("AM") ? 0 : 12));
+        date.setHours(h);
         date.setMinutes(m);
         date.setSeconds(0);
 
@@ -256,6 +257,24 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
+    public void editReminder(int id, int hourOfDay, int minute, String meridian) {
+        ContentValues contentValues = new ContentValues();
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        //date.setHours(h + (merd.equals("AM") ? 0 : 12));
+        date.setHours(hourOfDay);
+        date.setMinutes(minute);
+        date.setSeconds(0);
+
+        String time = hourOfDay + ":" + minute;
+        contentValues.put("_id", id);
+        contentValues.put(COLUMN_REGISTER_TIME, time);
+        contentValues.put(COLUMN_MERIDIAN, meridian);
+        contentValues.put(COLUMN_ISACTIVE, "1");
+        contentValues.put(COLUMN_REMINDER_MILLI, date.getTime());
+        getWritableDatabase().update(REMINDER_TABLE, contentValues, "_id = ? ", new String[]{Integer.toString(id)});
+    }
+
     public String getLatestThought(int dayId) {
         Cursor cursor = getReadableDatabase().rawQuery("SELECT " + COLUMN_THOUGHT + " FROM " + THOUGHTS_TABLE + " where " + COLUMN_DAY_ID + " = " + dayId + " ORDER BY _id DESC", null);
         if (cursor.moveToFirst()) {
@@ -265,15 +284,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         } else return "";
     }
 
-    public void editReminder(int id, int hourOfDay, int minute, String meridian) {
-        ContentValues contentValues = new ContentValues();
-        String time = hourOfDay + ":" + minute;
-        contentValues.put("_id", id);
-        contentValues.put(COLUMN_REGISTER_TIME, time);
-        contentValues.put(COLUMN_MERIDIAN, meridian);
-        contentValues.put(COLUMN_ISACTIVE, "1");
-        getWritableDatabase().update(REMINDER_TABLE, contentValues, "_id = ? ", new String[]{Integer.toString(id)});
-    }
+
 
     void negatereminder(int p) {
         SQLiteDatabase db = getReadableDatabase();
@@ -316,12 +327,17 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 int id = Integer.parseInt(cursor.getString(0));
                 String hm = cursor.getString(cursor.getColumnIndex(COLUMN_REMINDER_TIME));
                 String merd = cursor.getString(cursor.getColumnIndex(COLUMN_MERIDIAN));
+
                 boolean isactive = cursor.getString(cursor.getColumnIndex(COLUMN_ISACTIVE)).equals("1");
                 Log.d("Logd IsActive", "" + isactive);
 
                 String[] t = hm.split(":");
                 int h = Integer.parseInt(t[0]);
+                if (merd.equals("Pm")) {
+                    h = h - 12;
+                }
                 int m = Integer.parseInt(t[1]);
+
                 Reminder temp = new Reminder(h, m, merd, isactive);
                 temp._id = id;
                 reminders.add(temp);

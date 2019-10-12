@@ -58,7 +58,7 @@ public class ReminderFragment extends Fragment implements onSwitchListener, Recy
                                                       int minute) {
                                     String meridian = "Am";
                                     if (hourOfDay > 12) {
-                                        hourOfDay = hourOfDay - 12;
+                                        //hourOfDay = hourOfDay - 12;
                                         meridian = "Pm";
                                     }
                                     DatabaseManager.databaseManager.fabAddReminder(hourOfDay, minute, meridian);
@@ -108,8 +108,8 @@ public class ReminderFragment extends Fragment implements onSwitchListener, Recy
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
                         String meridian = "Am";
-                        if (hourOfDay > 12) {
-                            hourOfDay = hourOfDay - 12;
+                        if (hourOfDay >= 12) {
+                            //hourOfDay = hourOfDay - 12;
                             meridian = "Pm";
                         }
                         DatabaseManager.databaseManager.editReminder(id, hourOfDay, minute, meridian);
