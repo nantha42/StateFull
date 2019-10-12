@@ -32,6 +32,11 @@ public class ThoughtFragment extends Fragment implements View.OnClickListener/*,
 
     }
 
+    public void onCreate(Bundle savedInstance) {
+        super.onCreate(savedInstance);
+        setRetainInstance(true);
+    }
+
     ThoughtFragment(int day_id, CallAnotherFragment caller) {
         if (day_id == -1)
             this.day_id = DatabaseManager.databaseManager.getToDay(day_id);

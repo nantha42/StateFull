@@ -47,6 +47,11 @@ public class ReviewFragment extends Fragment {
         date = DatabaseManager.databaseManager.getDay(dayId);
     }
 
+    public void onCreate(Bundle savedInstance) {
+        super.onCreate(savedInstance);
+        setRetainInstance(true);
+    }
+
     void initPieGraph() {
         Log.d("InitGraph ", "Called");
         averageEntries.clear();

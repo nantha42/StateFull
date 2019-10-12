@@ -60,6 +60,10 @@ public class AnalysisFragment extends Fragment {
 
     }
 
+    public void onCreate(Bundle savedInstance) {
+        super.onCreate(savedInstance);
+        setRetainInstance(true);
+    }
     void initPieGraph() {
         Log.d("InitGraph ", "Called");
         averageEntries.clear();
