@@ -19,7 +19,15 @@
     <string name="app_name">StateFull</string>
     <string name="open_drawer">Open Navigation Drawer</string>
     <string name="close_drawer">Close Navigation Drawer</string>
-    <string name="about">We help you to log your mental and emotional states and provide insigt of your log. We use the state of the art machine learning techniques to detect mental problems and also try to predict the mood changes in days. You can also help us by sending those data to us and we can use that for research in psychology studies.</string>
+    <string name="about">   We help you to log your mental and emotional states and provide insigt of your log.
+        We use the state of the art machine learning techniques to detect mental problems and also try to predict
+        the mood changes in days. You can also help us by sending those data to us and we can use that for research in
+        psychology studies.
+        \n\nWhen registering thoughts try to note more about your positive , action and ideas oriented
+        thoughts and less about negative that is when something catastrophic happens.
+        Orange and Yellow are functionalites yet to be added.
+        \n\nNote your mood atleast 10 times in a day in the app. This
+        increases your awareness and also helps the app to display you precise statistics.</string>
     <string name="depressed">Depressed</string>
     <string name="worried">Worried</string>
     <string name="stressed">Stressed</string>

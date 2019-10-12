@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -19,6 +20,9 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -27,6 +31,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
@@ -34,6 +39,7 @@ public class AnalysisFragment extends Fragment {
     int day_id;
     PieChart averageChart;
     BarChart dailyHistory;
+    LineChart lineChart;
     CallAnotherFragment mCaller;
 
     TreeMap<Long, Integer> moods = new TreeMap<>();
@@ -194,7 +200,69 @@ public class AnalysisFragment extends Fragment {
         dailyHistory.animateY(1500);
         dailyHistory.setData(data);
     }
+    void initLineGraph(){
+        List<List<Integer>> data = DatabaseManager.databaseManager.getDatForCharacteristics(day_id);
+        List<Entry> confidence = new ArrayList<>();
+        List<Entry> satisfaction = new ArrayList<>();
+        List<Entry> ambition =  new ArrayList<>();
+        List<Entry> energy  = new ArrayList<>();
+        List<Entry> enthusiasm = new ArrayList<>();
+        for(int i=0;i<data.size();i++){
+            confidence.add(new Entry(i,data.get(i).get(0)));
+            satisfaction.add(new Entry(i,data.get(i).get(1)));
+            enthusiasm.add(new Entry(i,data.get(i).get(2)));
+            ambition.add(new Entry(i,data.get(i).get(3)));
+            energy.add(new Entry(i,data.get(i).get(4)));
+        }
+        LineDataSet conf_dataset = new LineDataSet(confidence,"Confidence");
+        conf_dataset.setColor(Color.GREEN);
+        LineDataSet sats_dataset = new LineDataSet(satisfaction,"Satisfaction");
+        sats_dataset.setColor(Color.BLUE);
+        LineDataSet enth_dataset = new LineDataSet(enthusiasm,"Enthusiasm");
+        enth_dataset.setColor(Color.CYAN);
+        LineDataSet amb_dataset = new LineDataSet(ambition,"Ambition");
+        amb_dataset.setColor(Color.RED);
+        LineDataSet ene_dataset = new LineDataSet(energy,"Energy");
+        ene_dataset.setColor(Color.YELLOW);
 
+        LineData linedata = new LineData();
+        linedata.addDataSet(conf_dataset);
+        linedata.addDataSet(sats_dataset);
+        linedata.addDataSet(enth_dataset);
+        linedata.addDataSet(amb_dataset);
+        linedata.addDataSet(ene_dataset);
+        lineChart.setData(linedata);
+        lineChart.getLegend().setTextColor(Color.WHITE);
+        lineChart.getXAxis().setTextColor(Color.WHITE);
+        lineChart.getAxisLeft().setTextColor(Color.WHITE);
+
+        lineChart.getAxisRight().setDrawLabels(false);
+
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_analysis, container, false);
+        //averageChart = view.findViewById(R.id.piecharttoday);
+        dailyHistory = view.findViewById(R.id.barcharttoday);
+        lineChart = view.findViewById(R.id.linechart_characteristics);
+//        this.initPieGraph();
+        this.initBarGraph();
+        this.initLineGraph();
+        return view;
+    }
+
+    class valueFormatter extends ValueFormatter{
+        private SimpleDateFormat mFormat = new SimpleDateFormat("HH:mm");
+        int count =0;
+        @Override
+        public String getFormattedValue(float value) {
+            Date  date = new Date((long)value);
+            Log.d("formatted",""+ mFormat.format(date));
+            return mFormat.format(date);
+        }
+    }
     private void initiateNames() {
         names.clear();
         names.add("Awesome");
@@ -215,24 +283,4 @@ public class AnalysisFragment extends Fragment {
 
     }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_analysis, container, false);
-        //averageChart = view.findViewById(R.id.piecharttoday);
-        dailyHistory = view.findViewById(R.id.barcharttoday);
-//        this.initPieGraph();
-        this.initBarGraph();
-        return view;
-    }
-    class valueFormatter extends ValueFormatter{
-        private SimpleDateFormat mFormat = new SimpleDateFormat("HH:mm");
-        int count =0;
-        @Override
-        public String getFormattedValue(float value) {
-            Date  date = new Date((long)value);
-            Log.d("formatted",""+ mFormat.format(date));
-            return mFormat.format(date);
-        }
-    }
 }

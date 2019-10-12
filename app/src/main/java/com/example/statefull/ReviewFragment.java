@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -159,14 +160,16 @@ public class ReviewFragment extends Fragment {
         BarData data = new BarData(barDataSet);
         data.setBarWidth(0.9f);
         YAxis yaxis = dailyHistory.getAxisLeft();
+        yaxis.setTextColor(Color.parseColor("#FFFFFF"));
         YAxis yaxis1 = dailyHistory.getAxisRight();
-        yaxis.setDrawGridLinesBehindData(false);
-        yaxis.setDrawGridLines(false);
+        XAxis xaxis = dailyHistory.getXAxis();
+        xaxis.setTextColor(Color.parseColor("#FFFFFF"));
 
         yaxis.setAxisMaximum(20);
         yaxis1.setDrawLabels(false);
         dailyHistory.animateY(1500);
         dailyHistory.setData(data);
+
     }
 
     private void initiateNames() {

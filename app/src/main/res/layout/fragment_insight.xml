@@ -1,7 +1,426 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/analysiscolorbg">
+    android:background="@color/analysiscolorbg"
+    android:padding="8dp">
 
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/deviations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/deviations_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+
+                    android:text="Deviations"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18dp" />
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/level_confidence_devi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="16dp"
+                        android:text="Confidence"
+                        android:textColor="@color/alltextcolor" />
+
+                    <TextView
+                        android:id="@+id/level_confidence_devi_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:text="5"
+                        android:textColor="@color/alltextcolor" />
+                    <ProgressBar
+                        android:id="@+id/progress_confidence"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/level_confidence_devi"
+                        style="@style/my_progress_bar"
+                        android:indeterminate="false"
+                        android:layout_marginTop="8dp"
+                        android:max="100"
+                        android:layout_marginEnd="36dp"
+                        android:layout_marginStart="16dp"
+                        android:progress="50"
+                        android:minHeight="4dp"
+                        android:minWidth="30dp"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/level_energy_devi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="16dp"
+                        android:text="Energy "
+                        android:textColor="@color/alltextcolor" />
+
+                    <TextView
+                        android:id="@+id/level_energy_devi_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:text="5"
+                        android:textColor="@color/alltextcolor" />
+                    <ProgressBar
+                        android:id="@+id/progress_energy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/level_energy_devi"
+                        style="@style/my_progress_bar"
+                        android:indeterminate="false"
+                        android:layout_marginTop="8dp"
+                        android:max="100"
+                        android:layout_marginEnd="36dp"
+                        android:layout_marginStart="16dp"
+                        android:progress="50"
+                        android:minHeight="4dp"
+                        android:minWidth="30dp"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/level_satisfaction_devi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="16dp"
+                        android:text="Satisfaction"
+                        android:textColor="@color/alltextcolor" />
+
+                    <TextView
+                        android:id="@+id/level_satisfaction_devi_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:text="5"
+                        android:textColor="@color/alltextcolor" />
+                    <ProgressBar
+                        android:id="@+id/progress_satisfaction"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/level_satisfaction_devi"
+                        style="@style/my_progress_bar"
+                        android:indeterminate="false"
+                        android:layout_marginTop="8dp"
+                        android:max="100"
+                        android:layout_marginEnd="36dp"
+                        android:layout_marginStart="16dp"
+                        android:progress="50"
+                        android:minHeight="4dp"
+                        android:minWidth="30dp"
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/level_enthusiasm_devi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="16dp"
+                        android:text="Enthusiasm"
+                        android:textColor="@color/alltextcolor" />
+
+                    <TextView
+                        android:id="@+id/level_enthusiasm_devi_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:text="5"
+                        android:textColor="@color/alltextcolor" />
+                    <ProgressBar
+
+                        android:id="@+id/progress_enthusiasm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/level_enthusiasm_devi"
+                        style="@style/my_progress_bar"
+                        android:indeterminate="false"
+                        android:layout_marginTop="8dp"
+                        android:max="100"
+                        android:layout_marginEnd="36dp"
+                        android:layout_marginStart="16dp"
+                        android:progress="50"
+                        android:minHeight="4dp"
+                        android:minWidth="30dp"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/thoughts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/deviations"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/your_thoughts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:text="Your Thoughts"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18dp" />
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/chart_thought_type"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/thoughts_positive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="16dp"
+                        android:text="Positive"
+                        android:textColor="@color/alltextcolor" />
+
+                    <TextView
+                        android:id="@+id/thoughts_positive_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:text="5"
+                        android:textColor="@color/alltextcolor" />
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/thoughts_negative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="16dp"
+                        android:text="Negative"
+                        android:textColor="@color/alltextcolor" />
+
+                    <TextView
+                        android:id="@+id/thoughts_negative_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:text="5"
+                        android:textColor="@color/alltextcolor" />
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/thoughts_action"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="16dp"
+                        android:text="Action Oriented"
+                        android:textColor="@color/alltextcolor" />
+
+                    <TextView
+                        android:id="@+id/thoughts_action_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:text="5"
+                        android:textColor="@color/alltextcolor" />
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/thoughts_ideas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="16dp"
+                        android:text="Ideas "
+                        android:textColor="@color/alltextcolor" />
+
+                    <TextView
+                        android:id="@+id/thoughts_ideas_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:text="5"
+                        android:textColor="@color/alltextcolor" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mental"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/thoughts"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:text="Current Mentality"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/inextype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="16dp"
+                        android:text="You are an"
+                        android:textColor="@color/alltextcolor"/>
+
+                    <TextView
+                        android:id="@+id/inextype_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:text="Extrovert"
+                        android:textColor="@color/alltextcolor"/>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/strength"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="16dp"
+                        android:text="Mental Toughness"
+                        android:textColor="@color/alltextcolor"/>
+                    <TextView
+                        android:id="@+id/strength_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@color/alltextcolor"
+                        android:text="30"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/general_mood"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="16dp"
+                        android:text="General Mood"
+                        android:textColor="@color/alltextcolor"/>
+                    <TextView
+                        android:id="@+id/general_mood_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@color/alltextcolor"
+                        android:text="Happy"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

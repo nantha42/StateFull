@@ -6,35 +6,71 @@
     android:layout_gravity="center"
     android:background="@color/analysiscolorbg"
     android:clipToPadding="false"
-    android:padding="16dp"
-    >
+    android:padding="16dp">
 
-
-    <RelativeLayout
-        android:id="@+id/barcharttodaylayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/analysiscolorbg"
-        android:elevation="80dp"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/barchartText"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="Mood Log"
-            android:textColor="@color/alltextcolor"
-            android:textSize="20sp" />
+            android:layout_height="match_parent">
 
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barcharttoday"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_below="@id/barchartText"
-            android:layout_marginTop="8dp" />
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/barcharttodaylayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/analysiscolorbg"
+                android:elevation="80dp"
+                android:orientation="vertical"
+                android:padding="8dp">
 
+                <TextView
+                    android:id="@+id/barchartText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Mood Log"
+                    android:textColor="@color/alltextcolor"
+                    android:textSize="20sp" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barcharttoday"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_below="@id/barchartText"
+                    android:layout_marginTop="8dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/linechart_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/barcharttodaylayout"
+
+                android:background="@color/analysiscolorbg"
+                android:elevation="80dp"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/linechart_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Mood Characteristics"
+                    android:textColor="@color/alltextcolor"
+                    android:textSize="20sp" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/linechart_characteristics"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_below="@id/linechart_text"
+                    android:layout_marginTop="8dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

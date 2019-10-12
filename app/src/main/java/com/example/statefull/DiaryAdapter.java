@@ -105,7 +105,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
             entries.add(new PieEntry(100 - positivitypercentage * 100, ""));
             PieDataSet dataset = new PieDataSet(entries, "");
             List<Integer> colors = new ArrayList<>();
-            colors.add(Color.rgb(149, 117, 205));
+            colors.add(Color.parseColor("#00C853"));
             colors.add(Color.GRAY);
             dataset.setColors(colors);
             PieData data = new PieData(dataset);
@@ -113,6 +113,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
             holder.graph.animateXY(1000, 1000);
             holder.graph.getLegend().setEnabled(false);
             holder.graph.getDescription().setEnabled(false);
+            holder.graph.setHoleColor(Color.parseColor("#424242"));
         } else {
             holder.graph.setVisibility(View.GONE);
             holder.charttitle.setVisibility(View.GONE);

@@ -12,7 +12,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class DatabaseManager extends SQLiteOpenHelper {
@@ -139,9 +142,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
         sql = String.format("DROP TABLE IF EXISTS %s;", DAY_TABLE);
         sqLiteDatabase.execSQL(sql);
         */
-        if(i<3){
+        if (i < 3) {
             String sql9 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,%s LONG, %s Integer,%s Integer,%s Integer,%s Integer,%s Integer,%s Integer);",
-                    CHARACT_TABLE,COLUMN_TIME,COLUMN_SATISFACTION,COLUMN_CONFIDENCE,COLUMN_ENTHUSIASM,COLUMN_AMBITION,COLUMN_ENERGY,COLUMN_DAY_ID);
+                    CHARACT_TABLE, COLUMN_TIME, COLUMN_SATISFACTION, COLUMN_CONFIDENCE, COLUMN_ENTHUSIASM, COLUMN_AMBITION, COLUMN_ENERGY, COLUMN_DAY_ID);
             sqLiteDatabase.execSQL(sql9);
         }
 
@@ -261,6 +264,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
             return j;
         } else return "";
     }
+
     public void editReminder(int id, int hourOfDay, int minute, String meridian) {
         ContentValues contentValues = new ContentValues();
         String time = hourOfDay + ":" + minute;
@@ -270,6 +274,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         contentValues.put(COLUMN_ISACTIVE, "1");
         getWritableDatabase().update(REMINDER_TABLE, contentValues, "_id = ? ", new String[]{Integer.toString(id)});
     }
+
     void negatereminder(int p) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery("Select " + COLUMN_ISACTIVE + " from " + REMINDER_TABLE + " where _id=" + p, null);
@@ -332,16 +337,17 @@ public class DatabaseManager extends SQLiteOpenHelper {
         contentValues.put(COLUMN_DAY_ID, day_id);
         getWritableDatabase().insert(MOOD_TABLE, null, contentValues);
     }
-    void charactEntry(long time,PersonalityParams p,int day_id){
-        ContentValues contentValues  = new ContentValues();
-        contentValues.put(COLUMN_TIME,time);
-        contentValues.put(COLUMN_SATISFACTION,p.satisfaction);
-        contentValues.put(COLUMN_CONFIDENCE,p.confidence);
-        contentValues.put(COLUMN_ENTHUSIASM,p.enthusiasm);
-        contentValues.put(COLUMN_AMBITION,p.ambition);
-        contentValues.put(COLUMN_ENERGY,p.energy);
-        contentValues.put(COLUMN_DAY_ID,day_id);
-        getWritableDatabase().insert(CHARACT_TABLE,null,contentValues);
+
+    void charactEntry(long time, PersonalityParams p, int day_id) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_TIME, time);
+        contentValues.put(COLUMN_SATISFACTION, p.satisfaction);
+        contentValues.put(COLUMN_CONFIDENCE, p.confidence);
+        contentValues.put(COLUMN_ENTHUSIASM, p.enthusiasm);
+        contentValues.put(COLUMN_AMBITION, p.ambition);
+        contentValues.put(COLUMN_ENERGY, p.energy);
+        contentValues.put(COLUMN_DAY_ID, day_id);
+        getWritableDatabase().insert(CHARACT_TABLE, null, contentValues);
     }
 
     TreeMap<Long, Integer> getMoodEntries(int day_id) {
@@ -375,8 +381,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 cursor.close();
                 return Integer.parseInt(id);
             } while (cursor.moveToNext());
-        }
-        else {
+        } else {
             ContentValues contentValues = new ContentValues();
             contentValues.put(COLUMN_DATE, current_date);
             getWritableDatabase().insert(DAY_TABLE, null, contentValues);
@@ -519,7 +524,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return perDay;
     }
 
-    public List<Thought> getThoughts(int day_id) {
+    List<Thought> getThoughts(int day_id) {
         if (day_id != -1) {
             List<Thought> thoughts = new ArrayList<Thought>();
             Cursor cursor = getWritableDatabase().rawQuery("SELECT * FROM " + THOUGHTS_TABLE + " WHERE " + COLUMN_DAY_ID + " = " + day_id + " ORDER BY _id DESC", null);
@@ -557,10 +562,265 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.delete(THOUGHTS_TABLE, "_id = ?", new String[]{Integer.toString(id)});
     }
 
-    public int getThoughtsCount(int day_id) {
+    int getThoughtsCount(int day_id) {
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + THOUGHTS_TABLE + " WHERE " + COLUMN_DAY_ID + " = " + day_id, null);
         return cursor.getCount();
     }
 
+    //Insight Calculator
+    double getConfidenceDeviation() {
+        String qury = "SELECT " + COLUMN_CONFIDENCE + "," + COLUMN_DAY_ID + "," + COLUMN_TIME + " from " + CHARACT_TABLE;
+        Cursor cursor = getReadableDatabase().rawQuery(qury, null);
+        TreeMap<Integer, List<Entry>> map = new TreeMap<>();
+        if (cursor.moveToFirst()) {
+            do {
+                int key = Integer.parseInt(cursor.getString(1));
+                int val = Integer.parseInt(cursor.getString(0));
+                long time = Long.parseLong(cursor.getString(2));
+                if (map.containsKey(key)) {
+                    List<Entry> list = map.get(key);
+                    Entry e = new Entry();
+                    e.time = time;
+                    e.val = val;
+                    list.add(e);
+                    map.put(key, list);
+                } else {
+                    List<Entry> list = new ArrayList<>();
+                    Entry e = new Entry();
+                    e.time = time;
+                    e.val = val;
+                    list.add(e);
+                    map.put(key, list);
+                }
+            } while (cursor.moveToNext());
+        }
+        double total_diff = 0;
+        double total_count = 0;
+        Log.d("map", "" + map.keySet().size());
+        for (int x : map.keySet()) {
+            List<Entry> list = map.get(x);
+            double diff = 0;
+            int count = 0;
+            if (list.size() > 1) {
+                for (int i = 1; i < list.size(); i++) {
+                    long dx = list.get(i).time - list.get(i - 1).time;
+                    dx = dx / (1000 * 60);
+                    int dy = Math.abs(list.get(i).val - list.get(i - 1).val);
+                    diff += dy / (double) dx;
+                    count++;
+                }
+                Log.d("Diff", diff + " " + count);
+                diff = diff / count;
+                total_diff = total_diff + diff;
+                total_count++;
+            }
+        }
+        return total_diff / total_count;
+    }
 
+    double getEnergyDeviation() {
+        String qury = "SELECT " + COLUMN_ENERGY + "," + COLUMN_DAY_ID + "," + COLUMN_TIME + " from " + CHARACT_TABLE;
+        Cursor cursor = getReadableDatabase().rawQuery(qury, null);
+        TreeMap<Integer, List<Entry>> map = new TreeMap<>();
+        if (cursor.moveToFirst()) {
+            do {
+                int key = Integer.parseInt(cursor.getString(1));
+                int val = Integer.parseInt(cursor.getString(0));
+                long time = Long.parseLong(cursor.getString(2));
+                if (map.containsKey(key)) {
+                    List<Entry> list = map.get(key);
+                    Entry e = new Entry();
+                    e.time = time;
+                    e.val = val;
+                    list.add(e);
+                    map.put(key, list);
+                } else {
+                    List<Entry> list = new ArrayList<>();
+                    Entry e = new Entry();
+                    e.time = time;
+                    e.val = val;
+                    list.add(e);
+                    map.put(key, list);
+                }
+            } while (cursor.moveToNext());
+        }
+        double total_diff = 0;
+        double total_count = 0;
+        Log.d("map", "" + map.keySet().size());
+        for (int x : map.keySet()) {
+            List<Entry> list = map.get(x);
+            double diff = 0;
+            int count = 0;
+            if (list.size() > 1) {
+                for (int i = 1; i < list.size(); i++) {
+                    long dx = list.get(i).time - list.get(i - 1).time;
+                    dx = dx / (1000 * 60);
+                    int dy = Math.abs(list.get(i).val - list.get(i - 1).val);
+                    diff += dy / (double) dx;
+                    count++;
+                }
+                Log.d("Diff", diff + " " + count);
+                diff = diff / count;
+                total_diff = total_diff + diff;
+                total_count++;
+            }
+        }
+        return total_diff / total_count;
+    }
+
+    double getSatisfactionDeviation() {
+        String qury = "SELECT " + COLUMN_SATISFACTION + "," + COLUMN_DAY_ID + "," + COLUMN_TIME + " from " + CHARACT_TABLE;
+        Cursor cursor = getReadableDatabase().rawQuery(qury, null);
+        TreeMap<Integer, List<Entry>> map = new TreeMap<>();
+        if (cursor.moveToFirst()) {
+            do {
+                int key = Integer.parseInt(cursor.getString(1));
+                int val = Integer.parseInt(cursor.getString(0));
+                long time = Long.parseLong(cursor.getString(2));
+                if (map.containsKey(key)) {
+                    List<Entry> list = map.get(key);
+                    Entry e = new Entry();
+                    e.time = time;
+                    e.val = val;
+                    list.add(e);
+                    map.put(key, list);
+                } else {
+                    List<Entry> list = new ArrayList<>();
+                    Entry e = new Entry();
+                    e.time = time;
+                    e.val = val;
+                    list.add(e);
+                    map.put(key, list);
+                }
+            } while (cursor.moveToNext());
+        }
+        double total_diff = 0;
+        double total_count = 0;
+        Log.d("map", "" + map.keySet().size());
+        for (int x : map.keySet()) {
+            List<Entry> list = map.get(x);
+            double diff = 0;
+            int count = 0;
+            if (list.size() > 1) {
+                for (int i = 1; i < list.size(); i++) {
+                    long dx = list.get(i).time - list.get(i - 1).time;
+                    dx = dx / (1000 * 60);
+                    int dy = Math.abs(list.get(i).val - list.get(i - 1).val);
+                    diff += dy / (double) dx;
+                    count++;
+                }
+                Log.d("Diff", diff + " " + count);
+                diff = diff / count;
+                total_diff = total_diff + diff;
+                total_count++;
+            }
+        }
+        return total_diff / total_count;
+    }
+
+    double getEnthusiasmDeviation() {
+        String qury = "SELECT " + COLUMN_ENTHUSIASM + "," + COLUMN_DAY_ID + "," + COLUMN_TIME + " from " + CHARACT_TABLE;
+        Cursor cursor = getReadableDatabase().rawQuery(qury, null);
+        TreeMap<Integer, List<Entry>> map = new TreeMap<>();
+        if (cursor.moveToFirst()) {
+            do {
+                int key = Integer.parseInt(cursor.getString(1));
+                int val = Integer.parseInt(cursor.getString(0));
+                long time = Long.parseLong(cursor.getString(2));
+                if (map.containsKey(key)) {
+                    List<Entry> list = map.get(key);
+                    Entry e = new Entry();
+                    e.time = time;
+                    e.val = val;
+                    list.add(e);
+                    map.put(key, list);
+                } else {
+                    List<Entry> list = new ArrayList<>();
+                    Entry e = new Entry();
+                    e.time = time;
+                    e.val = val;
+                    list.add(e);
+                    map.put(key, list);
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        double total_diff = 0;
+        double total_count = 0;
+        Log.d("map", "" + map.keySet().size());
+        for (int x : map.keySet()) {
+            List<Entry> list = map.get(x);
+            double diff = 0;
+            int count = 0;
+            if (list.size() > 1) {
+                for (int i = 1; i < list.size(); i++) {
+                    long dx = list.get(i).time - list.get(i - 1).time;
+                    dx = dx / (1000 * 60);
+                    int dy = Math.abs(list.get(i).val - list.get(i - 1).val);
+                    diff += dy / (double) dx;
+                    count++;
+                }
+                Log.d("Diff", diff + " " + count);
+                diff = diff / count;
+                total_diff = total_diff + diff;
+                total_count++;
+            }
+        }
+        return total_diff / total_count;
+    }
+
+    List<Integer> getThoughtTypes() {
+        String q = "SELECT " + COLUMN_THOUGHT_COLOR + " FROM " + THOUGHTS_TABLE;
+        Cursor cur = getReadableDatabase().rawQuery(q, null);
+        int pos = 0, neg = 0, act = 0, ide = 0;
+        if (cur.moveToFirst()) {
+            do {
+                int color = Integer.parseInt(cur.getString(0));
+                switch (color) {
+                    case 0:
+                        act++;
+                        break;
+                    case 1:
+                        neg++;
+                        break;
+                    case 4:
+                        pos++;
+                        break;
+                    case 5:
+                        ide++;
+                        break;
+                }
+            } while (cur.moveToNext());
+            cur.close();
+        }
+        List<Integer> returner = new ArrayList<>();
+        returner.add(act);
+        returner.add(neg);
+        returner.add(pos);
+        returner.add(ide);
+        return returner;
+    }
+
+    List<List<Integer>> getDatForCharacteristics(int id) {
+        List<List<Integer>> result = new ArrayList<>();
+        String query = String.format("SELECT %s, %s, %s, %s, %s FROM %s WHERE %s = %s".toUpperCase(Locale.getDefault()),
+                COLUMN_CONFIDENCE, COLUMN_SATISFACTION, COLUMN_ENTHUSIASM, COLUMN_AMBITION, COLUMN_ENERGY, CHARACT_TABLE, COLUMN_DAY_ID, id);
+        Cursor cursor = getReadableDatabase().rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                List<Integer> entry = new ArrayList<>();
+                for (int i = 0; i < 5; i++) {
+                    entry.add(Integer.parseInt(cursor.getString(i)));
+                }
+                result.add(entry);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return result;
+    }
+
+    class Entry {
+        int val;
+        long time;
+    }
 }

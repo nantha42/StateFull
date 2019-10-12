@@ -170,7 +170,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_below="@id/level_enthusiasm"
-
+                    android:paddingStart="32dp"
                     android:padding="8dp"
                     android:text="How much enthusiasm you have is the key factor for living a intense life. It shows the amount of love for living and passion in doing things."
                     android:textColor="@color/alltextcolor" />
@@ -225,6 +225,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:padding="8dp"
+                    android:paddingStart="32dp"
                     android:text="Ambition is the measure of the height of a human. Higher ambitious people get things done and raise above problems and adversites in life."
                     android:textColor="@color/alltextcolor" />
 
@@ -277,7 +278,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_below="@id/level_energy"
-
+                    android:paddingStart="32dp"
                     android:padding="8dp"
                     android:text="Your Energy level is important for accomplishing things. Your energy determines how much healthy and active your are."
                     android:textColor="@color/alltextcolor" />
