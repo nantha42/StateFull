@@ -109,6 +109,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String sql5 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, %s LONG, %s Integer,%s Integer, FOREIGN KEY(%s) REFERENCES %s (%s));",
                 MOOD_TABLE, COLUMN_REGISTER_TIME, COLUMN_MOODVALUE, COLUMN_DAY_ID, COLUMN_DAY_ID, DAY_TABLE, "_id");
 
+        String sql9 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,%s LONG, %s Integer,%s Integer,%s Integer,%s Integer,%s Integer,%s Integer);",
+                CHARACT_TABLE, COLUMN_TIME, COLUMN_SATISFACTION, COLUMN_CONFIDENCE, COLUMN_ENTHUSIASM, COLUMN_AMBITION, COLUMN_ENERGY, COLUMN_DAY_ID);
+
 
         sqLiteDatabase.execSQL(sql);
         sqLiteDatabase.execSQL(sql1);
@@ -119,7 +122,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sql7);
         sqLiteDatabase.execSQL(sql6);
         sqLiteDatabase.execSQL(sql8);
-
+        sqLiteDatabase.execSQL(sql9);
     }
 
     @Override
@@ -283,7 +286,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
             return j;
         } else return "";
     }
-
 
 
     void negatereminder(int p) {
@@ -587,156 +589,29 @@ public class DatabaseManager extends SQLiteOpenHelper {
     double getConfidenceDeviation() {
         String qury = "SELECT " + COLUMN_CONFIDENCE + "," + COLUMN_DAY_ID + "," + COLUMN_TIME + " from " + CHARACT_TABLE;
         Cursor cursor = getReadableDatabase().rawQuery(qury, null);
-        TreeMap<Integer, List<Entry>> map = new TreeMap<>();
-        if (cursor.moveToFirst()) {
-            do {
-                int key = Integer.parseInt(cursor.getString(1));
-                int val = Integer.parseInt(cursor.getString(0));
-                long time = Long.parseLong(cursor.getString(2));
-                if (map.containsKey(key)) {
-                    List<Entry> list = map.get(key);
-                    Entry e = new Entry();
-                    e.time = time;
-                    e.val = val;
-                    list.add(e);
-                    map.put(key, list);
-                } else {
-                    List<Entry> list = new ArrayList<>();
-                    Entry e = new Entry();
-                    e.time = time;
-                    e.val = val;
-                    list.add(e);
-                    map.put(key, list);
-                }
-            } while (cursor.moveToNext());
-        }
-        double total_diff = 0;
-        double total_count = 0;
-        Log.d("map", "" + map.keySet().size());
-        for (int x : map.keySet()) {
-            List<Entry> list = map.get(x);
-            double diff = 0;
-            int count = 0;
-            if (list.size() > 1) {
-                for (int i = 1; i < list.size(); i++) {
-                    long dx = list.get(i).time - list.get(i - 1).time;
-                    dx = dx / (1000 * 60);
-                    int dy = Math.abs(list.get(i).val - list.get(i - 1).val);
-                    diff += dy / (double) dx;
-                    count++;
-                }
-                Log.d("Diff", diff + " " + count);
-                diff = diff / count;
-                total_diff = total_diff + diff;
-                total_count++;
-            }
-        }
-        return total_diff / total_count;
+        return computeAverage(cursor);
     }
 
     double getEnergyDeviation() {
         String qury = "SELECT " + COLUMN_ENERGY + "," + COLUMN_DAY_ID + "," + COLUMN_TIME + " from " + CHARACT_TABLE;
         Cursor cursor = getReadableDatabase().rawQuery(qury, null);
-        TreeMap<Integer, List<Entry>> map = new TreeMap<>();
-        if (cursor.moveToFirst()) {
-            do {
-                int key = Integer.parseInt(cursor.getString(1));
-                int val = Integer.parseInt(cursor.getString(0));
-                long time = Long.parseLong(cursor.getString(2));
-                if (map.containsKey(key)) {
-                    List<Entry> list = map.get(key);
-                    Entry e = new Entry();
-                    e.time = time;
-                    e.val = val;
-                    list.add(e);
-                    map.put(key, list);
-                } else {
-                    List<Entry> list = new ArrayList<>();
-                    Entry e = new Entry();
-                    e.time = time;
-                    e.val = val;
-                    list.add(e);
-                    map.put(key, list);
-                }
-            } while (cursor.moveToNext());
-        }
-        double total_diff = 0;
-        double total_count = 0;
-        Log.d("map", "" + map.keySet().size());
-        for (int x : map.keySet()) {
-            List<Entry> list = map.get(x);
-            double diff = 0;
-            int count = 0;
-            if (list.size() > 1) {
-                for (int i = 1; i < list.size(); i++) {
-                    long dx = list.get(i).time - list.get(i - 1).time;
-                    dx = dx / (1000 * 60);
-                    int dy = Math.abs(list.get(i).val - list.get(i - 1).val);
-                    diff += dy / (double) dx;
-                    count++;
-                }
-                Log.d("Diff", diff + " " + count);
-                diff = diff / count;
-                total_diff = total_diff + diff;
-                total_count++;
-            }
-        }
-        return total_diff / total_count;
+        return computeAverage(cursor);
     }
 
     double getSatisfactionDeviation() {
         String qury = "SELECT " + COLUMN_SATISFACTION + "," + COLUMN_DAY_ID + "," + COLUMN_TIME + " from " + CHARACT_TABLE;
         Cursor cursor = getReadableDatabase().rawQuery(qury, null);
-        TreeMap<Integer, List<Entry>> map = new TreeMap<>();
-        if (cursor.moveToFirst()) {
-            do {
-                int key = Integer.parseInt(cursor.getString(1));
-                int val = Integer.parseInt(cursor.getString(0));
-                long time = Long.parseLong(cursor.getString(2));
-                if (map.containsKey(key)) {
-                    List<Entry> list = map.get(key);
-                    Entry e = new Entry();
-                    e.time = time;
-                    e.val = val;
-                    list.add(e);
-                    map.put(key, list);
-                } else {
-                    List<Entry> list = new ArrayList<>();
-                    Entry e = new Entry();
-                    e.time = time;
-                    e.val = val;
-                    list.add(e);
-                    map.put(key, list);
-                }
-            } while (cursor.moveToNext());
-        }
-        double total_diff = 0;
-        double total_count = 0;
-        Log.d("map", "" + map.keySet().size());
-        for (int x : map.keySet()) {
-            List<Entry> list = map.get(x);
-            double diff = 0;
-            int count = 0;
-            if (list.size() > 1) {
-                for (int i = 1; i < list.size(); i++) {
-                    long dx = list.get(i).time - list.get(i - 1).time;
-                    dx = dx / (1000 * 60);
-                    int dy = Math.abs(list.get(i).val - list.get(i - 1).val);
-                    diff += dy / (double) dx;
-                    count++;
-                }
-                Log.d("Diff", diff + " " + count);
-                diff = diff / count;
-                total_diff = total_diff + diff;
-                total_count++;
-            }
-        }
-        return total_diff / total_count;
+        return computeAverage(cursor);
     }
 
-    double getEnthusiasmDeviation() {
+    double getEnthusiasmAverage() {
         String qury = "SELECT " + COLUMN_ENTHUSIASM + "," + COLUMN_DAY_ID + "," + COLUMN_TIME + " from " + CHARACT_TABLE;
         Cursor cursor = getReadableDatabase().rawQuery(qury, null);
+        return computeAverage(cursor);
+
+    }
+
+    double computeAverage(Cursor cursor) {
         TreeMap<Integer, List<Entry>> map = new TreeMap<>();
         if (cursor.moveToFirst()) {
             do {
@@ -764,25 +639,27 @@ public class DatabaseManager extends SQLiteOpenHelper {
         double total_diff = 0;
         double total_count = 0;
         Log.d("map", "" + map.keySet().size());
+
         for (int x : map.keySet()) {
             List<Entry> list = map.get(x);
-            double diff = 0;
-            int count = 0;
-            if (list.size() > 1) {
-                for (int i = 1; i < list.size(); i++) {
-                    long dx = list.get(i).time - list.get(i - 1).time;
-                    dx = dx / (1000 * 60);
-                    int dy = Math.abs(list.get(i).val - list.get(i - 1).val);
-                    diff += dy / (double) dx;
+
+            double avg = 0;
+            if (list.size() > 0) {
+                int total = 0;
+                int count = 0;
+                for (int i = 0; i < list.size(); i++) {
+                    total += list.get(i).val;
                     count++;
                 }
-                Log.d("Diff", diff + " " + count);
-                diff = diff / count;
-                total_diff = total_diff + diff;
+                avg = total / count;
+            }
+            if (avg > 0) {
+                total_diff = total_diff + avg;
                 total_count++;
             }
         }
-        return total_diff / total_count;
+        return (total_diff / total_count) / 100;
+
     }
 
     List<Integer> getThoughtTypes() {
@@ -833,6 +710,100 @@ public class DatabaseManager extends SQLiteOpenHelper {
             cursor.close();
         }
         return result;
+    }
+
+    public TreeMap<Integer, Integer> getAvgConfidenceData() {
+        String query = String.format("SELECT * FROM %s ".toUpperCase(Locale.getDefault()), CHARACT_TABLE);
+        Cursor cursor = getReadableDatabase().rawQuery(query, null);
+        TreeMap<Integer, Integer> sum = new TreeMap<>();
+        TreeMap<Integer, Integer> count = new TreeMap<>();
+        if (cursor.moveToFirst()) {
+            do {
+                Log.d("Error Final", cursor.getColumnIndex(COLUMN_CONFIDENCE) + " " + cursor.getColumnIndex(COLUMN_DAY_ID));
+                if (cursor.getColumnIndex(COLUMN_CONFIDENCE) > 0 && cursor.getColumnIndex(COLUMN_DAY_ID) > 0) {
+
+                    int val = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_CONFIDENCE)));
+                    int dayid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_DAY_ID)));
+                    if (sum.containsKey(dayid)) {
+                        int alreadyval = sum.get(dayid);
+                        sum.put(dayid, alreadyval + val);
+                        count.put(dayid, count.get(dayid) + 1);
+                    } else {
+                        sum.put(dayid, val);
+                        count.put(dayid, 1);
+                    }
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+
+            for (int k : sum.keySet()) {
+                int s = sum.get(k);
+                int n = count.get(k);
+                sum.put(k, s / n);
+            }
+        }
+        return sum;
+    }
+
+    public TreeMap<Integer, Integer> getAvgEnthusiasmData() {
+        String query = String.format("SELECT * FROM %s ".toUpperCase(Locale.getDefault()), CHARACT_TABLE);
+        Cursor cursor = getReadableDatabase().rawQuery(query, null);
+        TreeMap<Integer, Integer> sum = new TreeMap<>();
+        TreeMap<Integer, Integer> count = new TreeMap<>();
+        if (cursor.moveToFirst()) {
+            do {
+                //Log.d("Error Final",cursor.getColumnIndex(COLUMN_CONFIDENCE)+" "+cursor.getColumnIndex(COLUMN_DAY_ID));
+                if (cursor.getColumnIndex(COLUMN_ENTHUSIASM) > 0 && cursor.getColumnIndex(COLUMN_DAY_ID) > 0) {
+
+                    int val = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_ENTHUSIASM)));
+                    int dayid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_DAY_ID)));
+                    if (sum.containsKey(dayid)) {
+                        int alreadyval = sum.get(dayid);
+                        sum.put(dayid, alreadyval + val);
+                        count.put(dayid, count.get(dayid) + 1);
+                    } else {
+                        sum.put(dayid, val);
+                        count.put(dayid, 1);
+                    }
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+
+            for (int k : sum.keySet()) {
+                int s = sum.get(k);
+                int n = count.get(k);
+                sum.put(k, s / n);
+            }
+        }
+        return sum;
+    }
+
+    public String[] getDaysforAxis() {
+        String query1 = String.format("SELECT * FROM %s".toUpperCase(Locale.getDefault()), DAY_TABLE);
+        Cursor cursor1 = getReadableDatabase().rawQuery(query1, null);
+        int maxval = 0;
+        HashMap<Integer, String> map = new HashMap<>();
+        if (cursor1.moveToFirst()) {
+            do {
+                int d = Integer.parseInt(cursor1.getString(cursor1.getColumnIndex("_id")));
+                String date = cursor1.getString(cursor1.getColumnIndex(COLUMN_DATE));
+                map.put(d, date);
+                if (d > maxval) {
+                    maxval = d;
+                }
+            } while (cursor1.moveToNext());
+            cursor1.close();
+        }
+        String[] values = new String[maxval];
+        for (int k : map.keySet()) {
+            String j = map.get(k);
+            j = j.substring(0, j.length() - 5);
+            String[] splitted = j.split(" ");
+            splitted[1] = Integer.toString(Integer.parseInt(splitted[1]) + 1);
+            j = splitted[0] + ":" + splitted[1];
+            values[k - 1] = j;
+        }
+        return values;
     }
 
     class Entry {

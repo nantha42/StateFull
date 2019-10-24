@@ -13,7 +13,7 @@
     android:layout_marginTop="56dp"
     android:background="@color/analysiscolorbg">
     <TextView
-        android:textColor="@color/alltextcolor"
+        android:textColor="#FFFFFF"
         android:gravity="center"
         android:textSize="24dp"
         android:text="Add Details"

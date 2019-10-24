@@ -222,12 +222,25 @@ public class AnalysisFragment extends Fragment {
         conf_dataset.setColor(Color.GREEN);
         LineDataSet sats_dataset = new LineDataSet(satisfaction,"Satisfaction");
         sats_dataset.setColor(Color.BLUE);
+        sats_dataset.setColor(Color.BLUE);
+        sats_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         LineDataSet enth_dataset = new LineDataSet(enthusiasm,"Enthusiasm");
         enth_dataset.setColor(Color.CYAN);
+        //enth_dataset.setDrawFilled(true);
+        enth_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        enth_dataset.setColor(Color.CYAN);
+        enth_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         LineDataSet amb_dataset = new LineDataSet(ambition,"Ambition");
         amb_dataset.setColor(Color.RED);
+        //amb_dataset.setDrawFilled(true);
+
+        amb_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        amb_dataset.setFillColor(Color.RED);
         LineDataSet ene_dataset = new LineDataSet(energy,"Energy");
         ene_dataset.setColor(Color.YELLOW);
+        //ene_dataset.setDrawFilled(true);
+        ene_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        ene_dataset.setFillColor(Color.YELLOW);
 
         LineData linedata = new LineData();
         linedata.addDataSet(conf_dataset);

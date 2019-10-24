@@ -21,6 +21,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -107,9 +108,7 @@ public class ReviewFragment extends Fragment {
         averageChart.setEntryLabelColor(Color.WHITE);
         //averageChart.setEntryLabelTextSize();
     }
-
     private int[] initiateColors(){
-
         TypedArray ta = getContext().getResources().obtainTypedArray(R.array.moodcolors);
         int[] colors = new int[ta.length()];
         for (int i = 0; i < ta.length(); i++) {
@@ -160,12 +159,15 @@ public class ReviewFragment extends Fragment {
         }
 
         BarDataSet barDataSet = new BarDataSet(historyEntries, "Today Log");
+
         barDataSet.setValueTextSize(0);
         barDataSet.setColors(Color.rgb(149,117,205));
         BarData data = new BarData(barDataSet);
         data.setBarWidth(0.9f);
+
         YAxis yaxis = dailyHistory.getAxisLeft();
         yaxis.setTextColor(Color.parseColor("#FFFFFF"));
+        yaxis.setDrawGridLines(false);
         YAxis yaxis1 = dailyHistory.getAxisRight();
         XAxis xaxis = dailyHistory.getXAxis();
         xaxis.setTextColor(Color.parseColor("#FFFFFF"));
@@ -174,6 +176,9 @@ public class ReviewFragment extends Fragment {
         yaxis1.setDrawLabels(false);
         dailyHistory.animateY(1500);
         dailyHistory.setData(data);
+        dailyHistory.setFitBars(true);
+        
+
 
     }
 

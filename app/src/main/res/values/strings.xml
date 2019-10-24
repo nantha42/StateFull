@@ -16,7 +16,7 @@
         <item>@string/worried</item>
         <item>@string/depressed</item>
     </string-array>
-    <string name="app_name">StateFull</string>
+    <string name="app_name">IlluminE</string>
     <string name="open_drawer">Open Navigation Drawer</string>
     <string name="close_drawer">Close Navigation Drawer</string>
     <string name="about">   We help you to log your mental and emotional states and provide insigt of your log.
