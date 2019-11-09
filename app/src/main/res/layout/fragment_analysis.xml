@@ -9,8 +9,9 @@
     android:padding="16dp">
 
     <ScrollView
+        android:id="@+id/scroll_graphs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="vertical"
@@ -32,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:text="Mood Log"
-                    android:textColor="@color/alltextcolor"
+                    android:textColor="@color/colorAccent"
                     android:textSize="20sp" />
 
                 <com.github.mikephil.charting.charts.BarChart
@@ -48,7 +49,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/barcharttodaylayout"
-
                 android:background="@color/analysiscolorbg"
                 android:elevation="80dp"
                 android:orientation="vertical"
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:text="Mood Characteristics"
-                    android:textColor="@color/alltextcolor"
+                    android:textColor="@color/colorAccent"
                     android:textSize="20sp" />
 
                 <com.github.mikephil.charting.charts.LineChart
@@ -73,4 +73,13 @@
         </LinearLayout>
     </ScrollView>
 
+    <TextView
+        android:id="@+id/no_data_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textSize="20dp"
+        android:text="Not enough data to draw graph"
+        android:textAlignment="center"
+        android:layout_below="@id/scroll_graphs" />
 </RelativeLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/analysiscolorbg"
+    android:padding="8dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/confidence_graph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/avg_confidence_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="16dp"
+                        android:textSize="18dp"
+                        android:text="Confidence"
+                        android:textColor="@color/colorAccent" />
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/avg_confidence_graph"
+                        android:padding="8dp"
+                        android:layout_below="@id/avg_confidence_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                android:layout_below="@id/confidence_graph">
+
+                <TextView
+                    android:id="@+id/avg_enthusiasm_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginStart="16dp"
+                    android:textSize="18dp"
+                    android:text="Enthusiasm"
+                    android:textColor="@color/colorAccent" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/avg_enthusisasm_graph"
+                    android:padding="8dp"
+                    android:layout_below="@id/avg_enthusiasm_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

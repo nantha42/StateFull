@@ -53,6 +53,7 @@ public class ThoughtFragment extends Fragment implements View.OnClickListener/*,
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup root, Bundle savedInstance) {
         View view = inflater.inflate(R.layout.fragment_thought, root, false);
         //DayData daydata = DatabaseManager.databaseManager.getTodayData();
+        Log.d("TodayThought", "Yes");
         ImageView addthought = view.findViewById(R.id.add_thought);
         addthought.setOnClickListener(this);
         FloatingActionButton add_mood = view.findViewById(R.id.fab_add_mood);
@@ -63,6 +64,7 @@ public class ThoughtFragment extends Fragment implements View.OnClickListener/*,
             }
         });
         thoughts = DatabaseManager.databaseManager.getThoughts(day_id);
+        Log.d("Thoughts Length", thoughts.size() + "");
         RecyclerView rvthoughts = view.findViewById(R.id.rvthoughtstores);
 
         rvthoughts.setAdapter(thoughtAdapter);

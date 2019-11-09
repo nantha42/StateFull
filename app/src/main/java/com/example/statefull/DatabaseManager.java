@@ -153,6 +153,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
+    String getUserName() {
+        Cursor c = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME1, null);
+        if (c.moveToFirst()) {
+            return c.getString(c.getColumnIndex(COLUMN_USERNAME));
+        } else return "No user";
+    }
+
     boolean addUser(String name, String password, String mail) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_USERNAME, name);

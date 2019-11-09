@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -147,35 +148,38 @@ public class AnalysisFragment extends Fragment {
         Date d = new Date();
         return d.getHours()*6+d.getMinutes()/6;
     }
-    private void initBarGraph() {
+
+    private void initBarGraph(View view) {
         historyEntries.clear();
         moods = DatabaseManager.databaseManager.getMoodEntries(day_id);
-        ArrayList<Integer> requiredColors = new ArrayList<>();
+        dailyHistory.setVisibility(View.VISIBLE);
+        if (moods.size() != 0) {
+            Log.d("EmptyData", moods.size() + " ");
+            ArrayList<Integer> requiredColors = new ArrayList<>();
 
-        TreeMap<Integer, Integer> time_converted_moods = new TreeMap<>();
-        for (long t : moods.keySet()) {
-            Date d = new Date(t);
-            int x = d.getHours() * 6 + (int) (d.getMinutes() / 6);
-            time_converted_moods.put(x,moods.get(t));
-        }
+            TreeMap<Integer, Integer> time_converted_moods = new TreeMap<>();
+            for (long t : moods.keySet()) {
+                Date d = new Date(t);
+                int x = d.getHours() * 6 + (int) (d.getMinutes() / 6);
+                time_converted_moods.put(x, moods.get(t));
+            }
 
-        int curperiod = getcurtime();
-        int lastmoodval = 0;
-        for(int i=0;i<=curperiod;i++){
-            if(time_converted_moods.containsKey(i)){
+            int curperiod = getcurtime();
+            int lastmoodval = 0;
+            for (int i = 0; i <= curperiod; i++) {
+                if (time_converted_moods.containsKey(i)) {
 
-                if(time_converted_moods.get(i)!=0) {
-                    lastmoodval = 16-time_converted_moods.get(i);
-                    historyEntries.add(new BarEntry(i, 16 - time_converted_moods.get(i)));
+                    if (time_converted_moods.get(i) != 0) {
+                        lastmoodval = 16 - time_converted_moods.get(i);
+                        historyEntries.add(new BarEntry(i, 16 - time_converted_moods.get(i)));
+                    }
+                } else {
+                    historyEntries.add(new BarEntry(i, 0));
                 }
             }
-            else{
-                historyEntries.add(new BarEntry(i,0));
-            }
-        }
 
-        int i = 0;
-        int[] colors = initiateColors();
+            int i = 0;
+            int[] colors = initiateColors();
         /*for (Long k : moods.keySet()) {
             //requiredColors.add(colors[moods.get(k)]);
             //requiredColors.add(getContext().getResources().obtainTypedArray(R.array.moodcolors).getColor());
@@ -183,81 +187,98 @@ public class AnalysisFragment extends Fragment {
             i++;
         }*/
 
-        BarDataSet barDataSet = new BarDataSet(historyEntries, "Today Log");
-        barDataSet.setValueTextSize(0);
-        barDataSet.setColor(Color.rgb(149,117,205));
-        BarData data = new BarData(barDataSet);
-        data.setBarWidth(0.9f);
-        //XAxis xaxis = dailyHistory.getXAxis();
-        //xaxis.setValueFormatter(new valueFormatter());
+            BarDataSet barDataSet = new BarDataSet(historyEntries, "Today Log");
+            barDataSet.setValueTextSize(0);
+            barDataSet.setColor(Color.rgb(149, 117, 205));
+            BarData data = new BarData(barDataSet);
+            data.setBarWidth(0.9f);
+            //XAxis xaxis = dailyHistory.getXAxis();
+            //xaxis.setValueFormatter(new valueFormatter());
 
-        YAxis yaxis = dailyHistory.getAxisLeft();
-        YAxis yaxis1 = dailyHistory.getAxisRight();
-        dailyHistory.getXAxis().setTextColor(Color.WHITE);
+            YAxis yaxis = dailyHistory.getAxisLeft();
+            YAxis yaxis1 = dailyHistory.getAxisRight();
+            dailyHistory.getXAxis().setTextColor(Color.WHITE);
 
-        yaxis.setDrawGridLinesBehindData(false);
-        yaxis.setDrawGridLines(false);
-        yaxis.setTextColor(Color.WHITE);
-        yaxis.setAxisMaximum(20);
-        yaxis1.setDrawLabels(false);
-        dailyHistory.getLegend().setTextColor(Color.WHITE);
-        dailyHistory.animateY(1500);
-        dailyHistory.setData(data);
+            yaxis.setDrawGridLinesBehindData(false);
+            yaxis.setDrawGridLines(false);
+            yaxis.setTextColor(Color.WHITE);
+            yaxis.setAxisMaximum(20);
+            yaxis1.setDrawLabels(false);
+            dailyHistory.getLegend().setTextColor(Color.WHITE);
+            dailyHistory.animateY(1500);
+            dailyHistory.setData(data);
+        } else {
+            dailyHistory.setVisibility(View.GONE);
+            TextView barChartTextView = view.findViewById(R.id.barchartText);
+            barChartTextView.setVisibility(View.GONE);
+        }
     }
-    void initLineGraph(){
+
+    void initLineGraph(View view) {
         List<List<Integer>> data = DatabaseManager.databaseManager.getDatForCharacteristics(day_id);
         List<Entry> confidence = new ArrayList<>();
         List<Entry> satisfaction = new ArrayList<>();
         List<Entry> ambition =  new ArrayList<>();
         List<Entry> energy  = new ArrayList<>();
         List<Entry> enthusiasm = new ArrayList<>();
-        for(int i=0;i<data.size();i++){
-            confidence.add(new Entry(i,data.get(i).get(0)));
-            satisfaction.add(new Entry(i,data.get(i).get(1)));
-            enthusiasm.add(new Entry(i,data.get(i).get(2)));
-            ambition.add(new Entry(i,data.get(i).get(3)));
-            energy.add(new Entry(i,data.get(i).get(4)));
+        lineChart.setVisibility(View.VISIBLE);
+        TextView textView = view.findViewById(R.id.no_data_text);
+        textView.setVisibility(View.GONE);
+        if (data.size() != 0) {
+            Log.d("EmptyData", data.size() + " ");
+            for (int i = 0; i < data.size(); i++) {
+                confidence.add(new Entry(i, data.get(i).get(0)));
+                satisfaction.add(new Entry(i, data.get(i).get(1)));
+                enthusiasm.add(new Entry(i, data.get(i).get(2)));
+                ambition.add(new Entry(i, data.get(i).get(3)));
+                energy.add(new Entry(i, data.get(i).get(4)));
+            }
+            LineDataSet conf_dataset = new LineDataSet(confidence, "Confidence");
+            conf_dataset.setColor(Color.GREEN);
+            conf_dataset.setCircleColor(Color.GREEN);
+            LineDataSet sats_dataset = new LineDataSet(satisfaction, "Satisfaction");
+            sats_dataset.setColor(Color.BLUE);
+            sats_dataset.setCircleColor(Color.BLUE);
+            sats_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            LineDataSet enth_dataset = new LineDataSet(enthusiasm, "Enthusiasm");
+            enth_dataset.setColor(Color.CYAN);
+            //enth_dataset.setDrawFilled(true);
+            enth_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            enth_dataset.setColor(Color.CYAN);
+            enth_dataset.setCircleColor(Color.CYAN);
+            enth_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            LineDataSet amb_dataset = new LineDataSet(ambition, "Ambition");
+            amb_dataset.setColor(Color.RED);
+            amb_dataset.setCircleColor(Color.RED);
+            //amb_dataset.setDrawFilled(true);
+            amb_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            amb_dataset.setFillColor(Color.RED);
+            LineDataSet ene_dataset = new LineDataSet(energy, "Energy");
+            ene_dataset.setColor(Color.YELLOW);
+            ene_dataset.setCircleColor(Color.YELLOW);
+            //ene_dataset.setDrawFilled(true);
+            ene_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            ene_dataset.setFillColor(Color.YELLOW);
+
+            LineData linedata = new LineData();
+            linedata.addDataSet(conf_dataset);
+            linedata.addDataSet(sats_dataset);
+            linedata.addDataSet(enth_dataset);
+            linedata.addDataSet(amb_dataset);
+            linedata.addDataSet(ene_dataset);
+            lineChart.setData(linedata);
+            lineChart.getLegend().setTextColor(Color.WHITE);
+            lineChart.getXAxis().setTextColor(Color.WHITE);
+            lineChart.getAxisLeft().setTextColor(Color.WHITE);
+
+            lineChart.getAxisRight().setDrawLabels(false);
+        } else {
+            lineChart.setVisibility(View.GONE);
+            TextView lineChartTextView = view.findViewById(R.id.linechart_text);
+            lineChartTextView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
         }
-        LineDataSet conf_dataset = new LineDataSet(confidence,"Confidence");
-        conf_dataset.setColor(Color.GREEN);
-        LineDataSet sats_dataset = new LineDataSet(satisfaction,"Satisfaction");
-        sats_dataset.setColor(Color.BLUE);
-        sats_dataset.setColor(Color.BLUE);
-        sats_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        LineDataSet enth_dataset = new LineDataSet(enthusiasm,"Enthusiasm");
-        enth_dataset.setColor(Color.CYAN);
-        //enth_dataset.setDrawFilled(true);
-        enth_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        enth_dataset.setColor(Color.CYAN);
-        enth_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        LineDataSet amb_dataset = new LineDataSet(ambition,"Ambition");
-        amb_dataset.setColor(Color.RED);
-        //amb_dataset.setDrawFilled(true);
-
-        amb_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        amb_dataset.setFillColor(Color.RED);
-        LineDataSet ene_dataset = new LineDataSet(energy,"Energy");
-        ene_dataset.setColor(Color.YELLOW);
-        //ene_dataset.setDrawFilled(true);
-        ene_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        ene_dataset.setFillColor(Color.YELLOW);
-
-        LineData linedata = new LineData();
-        linedata.addDataSet(conf_dataset);
-        linedata.addDataSet(sats_dataset);
-        linedata.addDataSet(enth_dataset);
-        linedata.addDataSet(amb_dataset);
-        linedata.addDataSet(ene_dataset);
-        lineChart.setData(linedata);
-        lineChart.getLegend().setTextColor(Color.WHITE);
-        lineChart.getXAxis().setTextColor(Color.WHITE);
-        lineChart.getAxisLeft().setTextColor(Color.WHITE);
-
-        lineChart.getAxisRight().setDrawLabels(false);
-
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_analysis, container, false);
@@ -265,11 +286,12 @@ public class AnalysisFragment extends Fragment {
         dailyHistory = view.findViewById(R.id.barcharttoday);
         lineChart = view.findViewById(R.id.linechart_characteristics);
 //        this.initPieGraph();
-        this.initBarGraph();
-        this.initLineGraph();
+        this.initBarGraph(view);
+        this.initLineGraph(view);
         return view;
     }
 
+    /*
     class valueFormatter extends ValueFormatter{
         private SimpleDateFormat mFormat = new SimpleDateFormat("HH:mm");
         int count =0;
@@ -279,7 +301,7 @@ public class AnalysisFragment extends Fragment {
             Log.d("formatted",""+ mFormat.format(date));
             return mFormat.format(date);
         }
-    }
+    }*/
     private void initiateNames() {
         names.clear();
         names.add("Awesome");
@@ -297,7 +319,6 @@ public class AnalysisFragment extends Fragment {
         names.add("Muted");
         names.add("Crying");
         names.add("Ill");
-
     }
 
 }

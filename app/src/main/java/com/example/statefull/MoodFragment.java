@@ -11,8 +11,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -45,21 +48,39 @@ public class MoodFragment extends Fragment implements DetailSaver, View.OnClickL
             R.drawable.ic_14_crying,
             R.drawable.ic_15_ill};
     String[] allMoodsName = {"Awesome", "Cool", "Great", "Happy", "Good", "Blush", "Fine", "Yawn", "Meh", "Bored", "Angry", "Sad", "Muted", "Crying", "Ill"};
-    int currentmood = 5;
+    int currentmood;
     private GestureDetectorCompat mDetector;
     private GestureDetector gDetector;
-
+    MindActivity mindActivity;
     MoodFragment(int day_id, SaveMood mSaver) {
         this.day_id = day_id;
         saver = mSaver;
     }
 
+    @NonNull
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("currentMood", currentmood);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null)
+            currentmood = savedInstanceState.getInt("currentmood");
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_mood, container, false);
+        mindActivity = (MindActivity) getActivity();
+        currentmood = mindActivity.currentmood;
+        changeImage();
+        Log.d("CreatedAgain", "Again");
         gDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
-
             @Override
             public boolean onDown(MotionEvent e) {
                 Log.d("Gesture", "Down");
@@ -74,11 +95,13 @@ public class MoodFragment extends Fragment implements DetailSaver, View.OnClickL
                         if (currentmood < 14) {
                             currentmood++;
                             changeImage();
+                            mindActivity.currentmood = currentmood;
                         }
                     } else {
                         if (currentmood > 0) {
                             currentmood--;
                             changeImage();
+                            mindActivity.currentmood = currentmood;
                         }
                     }
                 }
@@ -90,6 +113,14 @@ public class MoodFragment extends Fragment implements DetailSaver, View.OnClickL
                                    float velocityY) {
                 Log.i("Gesture", "onFling has been called!");
                 return super.onFling(e1, e2, velocityX, velocityY);
+            }
+        });
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_back_button);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
             }
         });
         Button addDetail = view.findViewById(R.id.more_detail);

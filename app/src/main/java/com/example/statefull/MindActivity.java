@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -20,11 +22,14 @@ import com.google.android.material.navigation.NavigationView;
 public class MindActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, itemClickListener {
     DrawerLayout drawer;
     NavigationView navigationView;
-
+    TextView username;
+    MoodFragment fragment;
+    int currentmood;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mind);
+        currentmood = 5;
         int id = 0;
         if (getIntent() != null) {
             Log.d("Start dialog", "" + getIntent().getStringExtra("EXTRA_START_DIALOG"));
@@ -33,12 +38,14 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        username = headerView.findViewById(R.id.username);
+        username.setText(DatabaseManager.databaseManager.getUserName());
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.open_drawer, R.string.close_drawer);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TodayFragment(-1)).commit();
