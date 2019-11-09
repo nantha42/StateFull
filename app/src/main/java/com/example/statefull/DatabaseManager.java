@@ -752,6 +752,105 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return sum;
     }
 
+    public TreeMap<Integer, Integer> getAvgSatisfactionData() {
+        String query = String.format("SELECT * FROM %s ".toUpperCase(Locale.getDefault()), CHARACT_TABLE);
+        Cursor cursor = getReadableDatabase().rawQuery(query, null);
+        TreeMap<Integer, Integer> sum = new TreeMap<>();
+        TreeMap<Integer, Integer> count = new TreeMap<>();
+        if (cursor.moveToFirst()) {
+            do {
+                Log.d("Error Final", cursor.getColumnIndex(COLUMN_SATISFACTION) + " " + cursor.getColumnIndex(COLUMN_DAY_ID));
+                if (cursor.getColumnIndex(COLUMN_SATISFACTION) > 0 && cursor.getColumnIndex(COLUMN_DAY_ID) > 0) {
+
+                    int val = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_SATISFACTION)));
+                    int dayid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_DAY_ID)));
+                    if (sum.containsKey(dayid)) {
+                        int alreadyval = sum.get(dayid);
+                        sum.put(dayid, alreadyval + val);
+                        count.put(dayid, count.get(dayid) + 1);
+                    } else {
+                        sum.put(dayid, val);
+                        count.put(dayid, 1);
+                    }
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+
+            for (int k : sum.keySet()) {
+                int s = sum.get(k);
+                int n = count.get(k);
+                sum.put(k, s / n);
+            }
+        }
+        return sum;
+    }
+
+    public TreeMap<Integer, Integer> getAvgEnergyData() {
+        String query = String.format("SELECT * FROM %s ".toUpperCase(Locale.getDefault()), CHARACT_TABLE);
+        Cursor cursor = getReadableDatabase().rawQuery(query, null);
+        TreeMap<Integer, Integer> sum = new TreeMap<>();
+        TreeMap<Integer, Integer> count = new TreeMap<>();
+        if (cursor.moveToFirst()) {
+            do {
+                Log.d("Error Final", cursor.getColumnIndex(COLUMN_ENERGY) + " " + cursor.getColumnIndex(COLUMN_DAY_ID));
+                if (cursor.getColumnIndex(COLUMN_ENERGY) > 0 && cursor.getColumnIndex(COLUMN_DAY_ID) > 0) {
+
+                    int val = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_ENERGY)));
+                    int dayid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_DAY_ID)));
+                    if (sum.containsKey(dayid)) {
+                        int alreadyval = sum.get(dayid);
+                        sum.put(dayid, alreadyval + val);
+                        count.put(dayid, count.get(dayid) + 1);
+                    } else {
+                        sum.put(dayid, val);
+                        count.put(dayid, 1);
+                    }
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+
+            for (int k : sum.keySet()) {
+                int s = sum.get(k);
+                int n = count.get(k);
+                sum.put(k, s / n);
+            }
+        }
+        return sum;
+    }
+
+    public TreeMap<Integer, Integer> getAvgAmbitionData() {
+        String query = String.format("SELECT * FROM %s ".toUpperCase(Locale.getDefault()), CHARACT_TABLE);
+        Cursor cursor = getReadableDatabase().rawQuery(query, null);
+        TreeMap<Integer, Integer> sum = new TreeMap<>();
+        TreeMap<Integer, Integer> count = new TreeMap<>();
+        if (cursor.moveToFirst()) {
+            do {
+                Log.d("Error Final", cursor.getColumnIndex(COLUMN_AMBITION) + " " + cursor.getColumnIndex(COLUMN_DAY_ID));
+                if (cursor.getColumnIndex(COLUMN_AMBITION) > 0 && cursor.getColumnIndex(COLUMN_DAY_ID) > 0) {
+
+                    int val = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_AMBITION)));
+                    int dayid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_DAY_ID)));
+                    if (sum.containsKey(dayid)) {
+                        int alreadyval = sum.get(dayid);
+                        sum.put(dayid, alreadyval + val);
+                        count.put(dayid, count.get(dayid) + 1);
+                    } else {
+                        sum.put(dayid, val);
+                        count.put(dayid, 1);
+                    }
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+
+            for (int k : sum.keySet()) {
+                int s = sum.get(k);
+                int n = count.get(k);
+                sum.put(k, s / n);
+            }
+        }
+        return sum;
+    }
+
     public TreeMap<Integer, Integer> getAvgEnthusiasmData() {
         String query = String.format("SELECT * FROM %s ".toUpperCase(Locale.getDefault()), CHARACT_TABLE);
         Cursor cursor = getReadableDatabase().rawQuery(query, null);
@@ -807,7 +906,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
             j = j.substring(0, j.length() - 5);
             String[] splitted = j.split(" ");
             splitted[1] = Integer.toString(Integer.parseInt(splitted[1]) + 1);
-            j = splitted[0] + ":" + splitted[1];
+            j = splitted[0] + "/" + splitted[1];
             values[k - 1] = j;
         }
         return values;
