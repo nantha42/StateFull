@@ -158,7 +158,6 @@ public class MoodFragment extends Fragment implements DetailSaver, View.OnClickL
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Log.d("Fragments", fragmentTransaction.toString());
-
         fragmentTransaction.replace(R.id.fragment_container, new AddDetailsFragment(this,pParams));
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();

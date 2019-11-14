@@ -44,6 +44,35 @@
     <string name="awesome">Awesome</string>
     <string name="great">Great</string>
 
+    <string-array name="splash_quotes">
+        <item>Become more Aware</item>
+        <item>Enlightens you</item>
+        <item>Record your daily ideas</item>
+        <item>Know what you don\'t know</item>
+        <item>Be cool and proactive</item>
+        <item>Rule your inner realms consciously</item>
+        <item>Balance your moods</item>
+    </string-array>
+
+    <string-array name="tips">
+        <item>It is best to record your mood once for two hours</item>
+        <item>Make a entry when your mood changes drastically</item>
+        <item>When you are stressed, observe your Breath</item>
+        <item>Recording thoughts helps you to identify repeating thoughts</item>
+        <item>Record your ideas often and open up to possibilities</item>
+        <item>Be aware of your thoughts</item>
+        <item>Some of your thoughts can destroy relations and opportunities, so be aware</item>
+        <item>When you are void of thoughts, your intelligence level will be at peak</item>
+        <item>Success comes when you manage your emotions wisely</item>
+        <item>You are a slave to fate if you dont control your emotions</item>
+        <item>Check the insights every week</item>
+        <item>Think when you need, otherwise dont alway cling with past</item>
+        <item>Observe your breath whenever you find time</item>
+        <item>Real Thinking is cognitively costly, but 90% time we do Analogies</item>
+        <item>Allocate your time for relaxations</item>
+        <item>Ideas are life changers</item>
+
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

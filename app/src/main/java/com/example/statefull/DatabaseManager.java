@@ -21,7 +21,7 @@ import java.util.TreeMap;
 public class DatabaseManager extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Master";
-    private static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 4;
     private static final String TABLE_NAME1 = "User";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_USERNAME = "name";
@@ -71,6 +71,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final String COLUMN_ENTHUSIASM = "enthusiasm";
     private static final String COLUMN_AMBITION = "ambition";
     private static final String COLUMN_ENERGY = "energy";
+
+    private static final String EVENT_TABLE = "Events";
+    private static final String COLUMN_EVENT_DESC = "Description";
+    private static final String COLUMN_IMPACT = "Impact";
+    private static final String COLUMN_MOOD = "Mood";
 
     static DatabaseManager databaseManager = null;
 
@@ -128,31 +133,31 @@ public class DatabaseManager extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         /*
-        String sql = String.format("DROP TABLE IF EXISTS %s;", TABLE_NAME1);
-        sqLiteDatabase.execSQL(sql);
-        sql = String.format("DROP TABLE IF EXISTS %s;", TABLE_NAME2);
-        sqLiteDatabase.execSQL(sql);
-        sql = String.format("DROP TABLE IF EXISTS %s;", TABLE_NAME3);
-        sqLiteDatabase.execSQL(sql);
-        sql = String.format("DROP TABLE IF EXISTS %s;", REMINDER_TABLE);
-        sqLiteDatabase.execSQL(sql);
-        sql = String.format("DROP TABLE IF EXISTS %s;", HAPPINESS_TABLE);
-        sqLiteDatabase.execSQL(sql);
-        sql = String.format("DROP TABLE IF EXISTS %s;", MOOD_TABLE);
-        sqLiteDatabase.execSQL(sql);
-        sql = String.format("DROP TABLE IF EXISTS %s;", THOUGHTS_TABLE);
-        sqLiteDatabase.execSQL(sql);
-        sql = String.format("DROP TABLE IF EXISTS %s;", DAY_TABLE);
-        sqLiteDatabase.execSQL(sql);
-        */
-        if (i < 3) {
-            String sql9 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,%s LONG, %s Integer,%s Integer,%s Integer,%s Integer,%s Integer,%s Integer);",
-                    CHARACT_TABLE, COLUMN_TIME, COLUMN_SATISFACTION, COLUMN_CONFIDENCE, COLUMN_ENTHUSIASM, COLUMN_AMBITION, COLUMN_ENERGY, COLUMN_DAY_ID);
-            sqLiteDatabase.execSQL(sql9);
+        {
+            String sql = String.format("DROP TABLE IF EXISTS %s;", TABLE_NAME1);
+            sqLiteDatabase.execSQL(sql);
+            sql = String.format("DROP TABLE IF EXISTS %s;", TABLE_NAME2);
+            sqLiteDatabase.execSQL(sql);
+            sql = String.format("DROP TABLE IF EXISTS %s;", TABLE_NAME3);
+            sqLiteDatabase.execSQL(sql);
+            sql = String.format("DROP TABLE IF EXISTS %s;", REMINDER_TABLE);
+            sqLiteDatabase.execSQL(sql);
+            sql = String.format("DROP TABLE IF EXISTS %s;", HAPPINESS_TABLE);
+            sqLiteDatabase.execSQL(sql);
+            sql = String.format("DROP TABLE IF EXISTS %s;", MOOD_TABLE);
+            sqLiteDatabase.execSQL(sql);
+            sql = String.format("DROP TABLE IF EXISTS %s;", THOUGHTS_TABLE);
+            sqLiteDatabase.execSQL(sql);
+            sql = String.format("DROP TABLE IF EXISTS %s;", DAY_TABLE);
+            sqLiteDatabase.execSQL(sql);
         }
-
+        */
+        if (i < 4) {
+            String sql10 = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,%s TEXT,%s TEXT,%s TEXT,%s TEXT,%s INTEGER)",
+                    EVENT_TABLE, COLUMN_EVENT_DESC, COLUMN_IMPACT, COLUMN_MOOD, COLUMN_DATE, COLUMN_DAY_ID);
+            sqLiteDatabase.execSQL(sql10);
+        }
     }
-
     String getUserName() {
         Cursor c = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME1, null);
         if (c.moveToFirst()) {
@@ -294,7 +299,31 @@ public class DatabaseManager extends SQLiteOpenHelper {
         } else return "";
     }
 
+    void addEvent(String desc, String impact, String mood) {
+        SQLiteDatabase dp = getWritableDatabase();
+        int id = addToday();
+        if (id != -1) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(COLUMN_EVENT_DESC, desc);
+            contentValues.put(COLUMN_IMPACT, impact);
+            contentValues.put(COLUMN_MOOD, mood);
+            contentValues.put(COLUMN_DAY_ID, id);
+            dp.insert(EVENT_TABLE, null, contentValues);
+            Log.d("Success", "Event_table");
+        }
+    }
 
+    void displayEvents() {
+        Cursor c = getReadableDatabase().rawQuery("SELECT * FROM " + EVENT_TABLE, null);
+        if (c.moveToFirst()) {
+            do {
+                Log.d("T", c.getString(1) + " " + c.getString(2) + " " + c.getString(3) + " " + c.getString(5));
+            } while (c.moveToNext());
+            c.close();
+        } else {
+            Log.d("T", "Empty");
+        }
+    }
     void negatereminder(int p) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery("Select " + COLUMN_ISACTIVE + " from " + REMINDER_TABLE + " where _id=" + p, null);
@@ -909,6 +938,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
             j = splitted[0] + "/" + splitted[1];
             values[k - 1] = j;
         }
+        Log.d("mValues", values.length + "");
         return values;
     }
 

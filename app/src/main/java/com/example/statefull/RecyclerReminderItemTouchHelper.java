@@ -23,7 +23,7 @@ public class RecyclerReminderItemTouchHelper extends ItemTouchHelper.SimpleCallb
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (viewHolder != null) {
-            final View foregroundView = ((ReminderAdapter.ViewHolder) viewHolder).viewForeground;
+            final View foregroundView = ((AdapterReminder.ViewHolder) viewHolder).viewForeground;
             getDefaultUIUtil().onSelected(foregroundView);
         }
     }
@@ -32,14 +32,14 @@ public class RecyclerReminderItemTouchHelper extends ItemTouchHelper.SimpleCallb
     public void onChildDrawOver(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
                                 RecyclerView.ViewHolder viewHolder, float dX, float dY,
                                 int actionState, boolean isCurrentlyActive) {
-        final View foregroundView = ((ReminderAdapter.ViewHolder) viewHolder).viewForeground;
+        final View foregroundView = ((AdapterReminder.ViewHolder) viewHolder).viewForeground;
         getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY,
                 actionState, isCurrentlyActive);
     }
 
     @Override
     public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-        final View foregroundView = ((ReminderAdapter.ViewHolder) viewHolder).viewForeground;
+        final View foregroundView = ((AdapterReminder.ViewHolder) viewHolder).viewForeground;
         getDefaultUIUtil().clearView(foregroundView);
     }
 
@@ -47,7 +47,7 @@ public class RecyclerReminderItemTouchHelper extends ItemTouchHelper.SimpleCallb
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
                             @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY,
                             int actionState, boolean isCurrentlyActive) {
-        final View foregroundView = ((ReminderAdapter.ViewHolder) viewHolder).viewForeground;
+        final View foregroundView = ((AdapterReminder.ViewHolder) viewHolder).viewForeground;
 
         getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY,
                 actionState, isCurrentlyActive);

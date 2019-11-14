@@ -21,7 +21,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -165,6 +164,7 @@ public class ReviewFragment extends Fragment {
         BarData data = new BarData(barDataSet);
         data.setBarWidth(0.9f);
 
+
         YAxis yaxis = dailyHistory.getAxisLeft();
         yaxis.setTextColor(Color.parseColor("#FFFFFF"));
         yaxis.setDrawGridLines(false);
@@ -176,6 +176,7 @@ public class ReviewFragment extends Fragment {
         yaxis1.setDrawLabels(false);
         dailyHistory.animateY(1500);
         dailyHistory.setData(data);
+        dailyHistory.getLegend().setTextColor(Color.parseColor("#FFFFFF"));
         dailyHistory.setFitBars(true);
         
 
@@ -208,7 +209,7 @@ public class ReviewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_review, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.rvreview);
-        ReviewAdapter adapter = new ReviewAdapter(dayId);
+        AdapterReview adapter = new AdapterReview(dayId);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         averageChart = view.findViewById(R.id.rvpiecharttoday);

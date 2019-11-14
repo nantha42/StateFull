@@ -25,7 +25,7 @@ interface itemClickListener {
 
 }
 
-public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> {
+public class AdapterDiary extends RecyclerView.Adapter<AdapterDiary.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         int id;
@@ -65,7 +65,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
     List<DayData> dayData;
     itemClickListener mitemClickListener;
 
-    public DiaryAdapter(itemClickListener listener) {
+    public AdapterDiary(itemClickListener listener) {
         dayData = DatabaseManager.databaseManager.getDays();
         mitemClickListener = listener;
     }
@@ -76,7 +76,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View dayView = inflater.inflate(R.layout.item_day, parent, false);
-        DiaryAdapter.ViewHolder viewHolder = new DiaryAdapter.ViewHolder(dayView, mitemClickListener);
+        AdapterDiary.ViewHolder viewHolder = new AdapterDiary.ViewHolder(dayView, mitemClickListener);
         return viewHolder;
     }
 

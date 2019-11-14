@@ -23,8 +23,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="424dp"
+        android:layout_height="713dp"
         android:layout_marginTop="48dp"
 
         android:text="@string/about"
@@ -39,17 +39,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="400dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
                 android:padding="24dp"
-                android:scrollbars="vertical"
-
                 android:scrollbarFadeDuration="@android:integer/config_shortAnimTime"
+                android:scrollbars="vertical"
                 android:text="@string/about"
                 android:textColor="@color/alltextcolor"
                 android:textSize="18sp"

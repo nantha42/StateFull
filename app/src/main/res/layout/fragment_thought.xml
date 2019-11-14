@@ -18,20 +18,60 @@
 
         <include
             android:id="@+id/whatinmindlayout"
-            layout="@layout/thought_box"
+            layout="@layout/box_thought"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvthoughtstores"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
+            android:layout_height="480dp"
             android:layout_below="@id/whatinmindlayout"
+            android:layout_marginTop="14dp"
             android:layoutAnimation="@anim/layout_animation_fall_down"
-            android:layout_marginTop="8dp"
-
             />
+
+        <RelativeLayout
+            android:id="@+id/suggestions_layout"
+            android:layout_width="match_parent"
+            android:layout_below="@id/rvthoughtstores"
+            android:background="@color/allitembg"
+            android:padding="8dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/suggestion_icon"
+                    android:src="@drawable/ic_lightbulb_outline_yellow_24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tips"
+                    android:textSize="18sp"
+                    android:textColor="#ffffff"
+                    android:id="@+id/suggestion_title" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/suggestions"
+                android:padding="14dp"
+                android:layout_marginTop="16dp"
+                android:text="Long term usage of Illumine, help you to become more aware of your moods swings and emotional patterns"
+                android:textColor="@color/alltextcolor"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
     </RelativeLayout>
 
 
@@ -40,9 +80,8 @@
         android:layout_width="96dp"
         android:layout_height="58dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="28dp"
-
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="16dp"
         android:src="@drawable/ic_insert_emoticon_white_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

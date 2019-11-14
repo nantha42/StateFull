@@ -25,6 +25,8 @@ interface CallAnotherFragment {
 
     void forMoodFragment();
 
+    void forNewEventFragment();
+
 }
 
 interface SaveThought {
@@ -44,6 +46,7 @@ public class TodayFragment extends Fragment implements CallAnotherFragment, Save
 
     ThoughtFragment thoughtFragment;
     AnalysisFragment analysisFragment;
+    AddEventsFragment addEventsFragment;
 
     TodayFragment(int id) {
         this.id = id;
@@ -51,6 +54,7 @@ public class TodayFragment extends Fragment implements CallAnotherFragment, Save
     TodayFragment(){
         this.id = -1;
     }
+
     @Override
     public void storeThought(String s, int colorValue) {
 
@@ -74,7 +78,6 @@ public class TodayFragment extends Fragment implements CallAnotherFragment, Save
     @Override
     public void storeMood(int id, int currentMood,PersonalityParams params) {
         int day_id = id;
-
         day_id = DatabaseManager.databaseManager.addToday();
         Log.d("day_id =", Integer.toString(day_id));
 
@@ -112,6 +115,7 @@ public class TodayFragment extends Fragment implements CallAnotherFragment, Save
         tabs.setupWithViewPager(viewPager);
         tabs.getTabAt(0).setIcon(R.drawable.ic_writing);
         tabs.getTabAt(1).setIcon(R.drawable.ic_pie_chart_black_24dp);
+        tabs.getTabAt(2).setIcon(R.drawable.ic_event_black_24dp);
         return view;
     }
 
@@ -133,13 +137,23 @@ public class TodayFragment extends Fragment implements CallAnotherFragment, Save
         fragmentTransaction.commit();
     }
 
+    public void forNewEventFragment() {
+        Fragment newEventFragment = new NewEventFragment(id);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, newEventFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
     private void setUpViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getChildFragmentManager());
         thoughtFragment = new ThoughtFragment(id, this);
         analysisFragment = new AnalysisFragment(id, this);
+        addEventsFragment = new AddEventsFragment(this);
         adapter.addFragment(thoughtFragment, "");
         adapter.addFragment(analysisFragment, "");
+        adapter.addFragment(addEventsFragment, "");
         viewPager.setAdapter(adapter);
     }
 
@@ -169,6 +183,7 @@ public class TodayFragment extends Fragment implements CallAnotherFragment, Save
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
+
         }
     }
 }

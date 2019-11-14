@@ -26,7 +26,7 @@ import java.util.List;
 public class ReminderFragment extends Fragment implements onSwitchListener, RecyclerReminderItemTouchHelper.RecyclerItemTouchHelperListener {
 
     private List<Reminder> reminders;
-    private ReminderAdapter adapter;
+    private AdapterReminder adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
@@ -34,7 +34,7 @@ public class ReminderFragment extends Fragment implements onSwitchListener, Recy
         RecyclerView rvReminders = view.findViewById(R.id.rvreminders);
         ((MindActivity)getActivity()).setActionBarTitle("StateFull");
         reminders = DatabaseManager.databaseManager.getReminders();
-        adapter = new ReminderAdapter(reminders, this);
+        adapter = new AdapterReminder(reminders, this);
         rvReminders.setAdapter(adapter);
         rvReminders.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         rvReminders.setItemAnimator(new DefaultItemAnimator());
@@ -140,7 +140,7 @@ public class ReminderFragment extends Fragment implements onSwitchListener, Recy
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        DatabaseManager.databaseManager.deletereminder(((ReminderAdapter.ViewHolder) viewHolder).viewid);
+        DatabaseManager.databaseManager.deletereminder(((AdapterReminder.ViewHolder) viewHolder).viewid);
         adapter.reminders = DatabaseManager.databaseManager.getReminders();
         adapter.notifyDataSetChanged();
         NotificationScheduler.contextforref = getActivity();

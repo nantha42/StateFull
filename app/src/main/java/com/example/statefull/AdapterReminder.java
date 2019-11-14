@@ -20,14 +20,13 @@ interface onSwitchListener {
 }
 
 
-
-public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
+public class AdapterReminder extends RecyclerView.Adapter<AdapterReminder.ViewHolder> {
 
     List<Reminder> reminders;
     onSwitchListener slistener;
 
 
-    ReminderAdapter(List<Reminder> reminders, onSwitchListener switchListener) {
+    AdapterReminder(List<Reminder> reminders, onSwitchListener switchListener) {
         this.reminders = reminders;
         slistener = switchListener;
 
@@ -44,7 +43,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ReminderAdapter.ViewHolder holder, final int p) {
+    public void onBindViewHolder(@NonNull final AdapterReminder.ViewHolder holder, final int p) {
 
         final Reminder reminder = reminders.get(p);
         String time = "";

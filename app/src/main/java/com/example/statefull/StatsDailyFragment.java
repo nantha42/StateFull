@@ -34,8 +34,14 @@ public class StatsDailyFragment extends Fragment {
         @Override
         public String getFormattedValue(float value) {
             // "value" represents the position of the label on the axis (x or y)
-            Log.d("ValueFormattr", value / 10 + " " + mValues[((int) value / 10) - 1]);
-            return mValues[(int) (value / 10) - 1];
+            Log.d("value", value + "");
+            Log.d("mValues", mValues[0]);
+            if (value / 10 >= 1) {
+                Log.d("ValueFormattr", value / 10 + " " + mValues[((int) value / 10) - 1]);
+
+                return mValues[(int) (value / 10) - 1];
+            }
+            return value + "";
         }
     }
 
@@ -63,7 +69,7 @@ public class StatsDailyFragment extends Fragment {
         int color[] = {Color.GREEN, Color.BLUE, Color.CYAN, Color.RED, Color.YELLOW};
         List<Entry> entries = new ArrayList<>();
         for (int k : data.keySet()) {
-            entries.add(new Entry(k * 10, data.get(k)));
+            entries.add(new Entry(k * 10, data.get(k)));//multiplied by 10 for spacing in graph
         }
         LineDataSet dataSet = new LineDataSet(entries, label);
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);

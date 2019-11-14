@@ -54,11 +54,10 @@ public class StatsFullFragment extends Fragment {
         try {
             num = new Double(formatter.format(num));
         } catch (Exception e) {
-
         }
 
         TextView confi = view.findViewById(R.id.level_confidence_devi_value);
-        confi.setText("" + num);
+        confi.setText("" + (int) (100 * num) + "%");
         ProgressBar bar = view.findViewById(R.id.progress_confidence);
         bar.setProgress((int) (100 * (num)));
 
@@ -71,7 +70,7 @@ public class StatsFullFragment extends Fragment {
 
         }
 
-        satis.setText("" + num);
+        satis.setText("" + (int) (num * 100) + "%");
         bar = view.findViewById(R.id.progress_satisfaction);
         bar.setProgress((int) (100 * (num)));
 
@@ -83,7 +82,7 @@ public class StatsFullFragment extends Fragment {
 
         }
 
-        energy.setText("" + num);
+        energy.setText("" + (int) (num * 100) + "%");
         bar = view.findViewById(R.id.progress_energy);
         bar.setProgress((int) (100 * (num)));
 
@@ -95,7 +94,7 @@ public class StatsFullFragment extends Fragment {
 
         }
 
-        enthu.setText("" + num);
+        enthu.setText("" + (int) (num * 100) + "%");
         bar = view.findViewById(R.id.progress_enthusiasm);
         bar.setProgress((int) (100 * (num)));
         List<Integer> list = setPieGraphData(view);
@@ -125,6 +124,7 @@ public class StatsFullFragment extends Fragment {
         chart.setHoleColor(Color.parseColor("#303030"));
         chart.setData(data);
         chart.getLegend().setTextColor(Color.parseColor("#FFFFFF"));
+        chart.animateXY(1000, 1000);
         return list;
     }
 }

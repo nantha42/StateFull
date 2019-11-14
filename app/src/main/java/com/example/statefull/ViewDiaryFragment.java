@@ -15,17 +15,17 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class DiaryFragment extends Fragment implements itemClickListener {
+public class ViewDiaryFragment extends Fragment implements itemClickListener {
 
     RecyclerView rvjournal;
-    DiaryAdapter adapter;
+    AdapterDiary adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
         View view = inflater.inflate(R.layout.fragment_diary, container, false);
         ((MindActivity)getActivity()).setActionBarTitle("Journal");
         rvjournal = view.findViewById(R.id.rvjournal);
-        adapter = new DiaryAdapter(this);
+        adapter = new AdapterDiary(this);
         rvjournal.setAdapter(adapter);
         rvjournal.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         rvjournal.setItemAnimator(new DefaultItemAnimator());

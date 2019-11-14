@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
+public class AdapterReview extends RecyclerView.Adapter<AdapterReview.ViewHolder> {
     int dayId;
     List<Thought> thoughts;
 
-    ReviewAdapter(int id) {
+    AdapterReview(int id) {
         dayId = id;
         thoughts = DatabaseManager.databaseManager.getThoughts(id);
         Log.d("Thouhtslen", thoughts.size() + "");
@@ -30,7 +30,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View reviewView = inflater.inflate(R.layout.item_thought, parent, false);
-        return new ReviewAdapter.ViewHolder(reviewView);
+        return new AdapterReview.ViewHolder(reviewView);
     }
 
     @Override

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+import java.util.Random;
 
 public class ThoughtFragment extends Fragment implements View.OnClickListener/*, EditThoughtFragment.SaveThought*/, DataProvider<Thought, ThoughtFragment.ThoughtViewHolder>, RecyclerThoughtItemTouchHelper.RecyclerItemTouchHelperListener {
 
@@ -74,6 +75,12 @@ public class ThoughtFragment extends Fragment implements View.OnClickListener/*,
         rvthoughts.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerThoughtItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(rvthoughts);
+        Random rand = new Random();
+
+        String[] tips = getResources().getStringArray(R.array.tips);
+        String tip = tips[rand.nextInt(tips.length)];
+        TextView tv = view.findViewById(R.id.suggestions);
+        tv.setText(tip);
         return view;
 
     }

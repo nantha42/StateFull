@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
@@ -24,7 +23,9 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     TextView username;
     MoodFragment fragment;
+    int alreadySelected = R.id.nav_today;
     int currentmood;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +79,7 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
         if (id == R.id.action_signout) {
@@ -90,6 +92,7 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Log.d("Called", "ONNavigationItemSelected" + menuItem.getItemId());
@@ -97,36 +100,50 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
         for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
             fm.popBackStack();
         }
-        switch (menuItem.getItemId()) {
-            case R.id.nav_today:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TodayFragment(-1)).commit();
-                navigationView.setCheckedItem(R.id.nav_today);
-                break;
+        if (alreadySelected != menuItem.getItemId()) {
+            switch (menuItem.getItemId()) {
+                case R.id.nav_today:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TodayFragment(-1)).commit();
+                    navigationView.setCheckedItem(R.id.nav_today);
+                    break;
 
-            case R.id.nav_diary:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DiaryFragment()).commit();
-                navigationView.setCheckedItem(R.id.nav_diary);
-                break;
+                case R.id.nav_diary:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewDiaryFragment()).commit();
+                    navigationView.setCheckedItem(R.id.nav_diary);
+                    break;
+                case R.id.nav_events:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewEventsFragment()).commit();
+                    navigationView.setCheckedItem(R.id.nav_events);
+                    break;
+                case R.id.nav_goals:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewGoalsFragment()).commit();
+                    navigationView.setCheckedItem(R.id.nav_goals);
+                    break;
+                case R.id.nav_reminders:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReminderFragment()).commit();
+                    navigationView.setCheckedItem(R.id.nav_reminders);
+                    break;
 
-            case R.id.nav_reminders:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReminderFragment()).commit();
-                navigationView.setCheckedItem(R.id.nav_reminders);
-                break;
-
-            case R.id.nav_about:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutFragment()).commit();
-                navigationView.setCheckedItem(R.id.nav_about);
-                break;
-            case R.id.nav_insight:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new InsightFragment()).commit();
-                break;
+                case R.id.nav_about:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutFragment()).commit();
+                    navigationView.setCheckedItem(R.id.nav_about);
+                    break;
+                case R.id.nav_insight:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InsightFragment()).commit();
+                    break;
+            }
+            drawer.closeDrawer(GravityCompat.START);
+            alreadySelected = menuItem.getItemId();
         }
-        drawer.closeDrawer(GravityCompat.START);
+
+
         return true;
     }
+
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
     }
+
     @Override
     public void onNoteClick(int id) {
         Log.d("Clickedfine", id + " ");
