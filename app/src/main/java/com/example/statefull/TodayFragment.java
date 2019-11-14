@@ -150,7 +150,7 @@ public class TodayFragment extends Fragment implements CallAnotherFragment, Save
         Adapter adapter = new Adapter(getChildFragmentManager());
         thoughtFragment = new ThoughtFragment(id, this);
         analysisFragment = new AnalysisFragment(id, this);
-        addEventsFragment = new AddEventsFragment(this);
+        addEventsFragment = new AddEventsFragment(this, id);
         adapter.addFragment(thoughtFragment, "");
         adapter.addFragment(analysisFragment, "");
         adapter.addFragment(addEventsFragment, "");

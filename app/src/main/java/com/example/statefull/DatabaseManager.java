@@ -351,6 +351,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return (int) DatabaseUtils.queryNumEntries(db, REMINDER_TABLE);
     }
 
+    int getEventsCount(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        return (int) DatabaseUtils.longForQuery(db, "SELECT COUNT(*) FROM " + EVENT_TABLE + " WHERE " + COLUMN_DAY_ID + " = " + id, null);
+    }
+
     int getDayTableSize() {
         SQLiteDatabase db = getReadableDatabase();
         return (int) DatabaseUtils.queryNumEntries(db, DAY_TABLE);
@@ -443,6 +448,20 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
     }
 
+    ArrayList<Event> getEvents(int id) {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + EVENT_TABLE + " WHERE " + COLUMN_DAY_ID + " = " + id, null);
+        ArrayList<Event> events = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                int iad = Integer.parseInt(cursor.getString(0));
+                String date = cursor.getString(1);
+                Event event = new Event(iad, cursor.getString(1), cursor.getString(2), cursor.getString(3));
+                events.add(event);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return events;
+    }
     List<DayData> getDays() {
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + DAY_TABLE + " ORDER BY _id DESC ", null);
         ArrayList<DayData> days = new ArrayList<>();
@@ -614,6 +633,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
     void removeThought(int id) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(THOUGHTS_TABLE, "_id = ?", new String[]{Integer.toString(id)});
+    }
+
+    void removeEvent(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(EVENT_TABLE, "_id = ?", new String[]{Integer.toString(id)});
     }
 
     int getThoughtsCount(int day_id) {
