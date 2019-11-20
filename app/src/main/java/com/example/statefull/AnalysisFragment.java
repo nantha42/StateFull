@@ -227,15 +227,16 @@ public class AnalysisFragment extends Fragment {
         if (data.size() != 0) {
             Log.d("EmptyData", data.size() + " ");
             for (int i = 0; i < data.size(); i++) {
-                confidence.add(new Entry(i, data.get(i).get(0)));
-                satisfaction.add(new Entry(i, data.get(i).get(1)));
-                enthusiasm.add(new Entry(i, data.get(i).get(2)));
-                ambition.add(new Entry(i, data.get(i).get(3)));
-                energy.add(new Entry(i, data.get(i).get(4)));
+                confidence.add(new Entry(i * 5, data.get(i).get(0)));
+                satisfaction.add(new Entry(i * 5, data.get(i).get(1)));
+                enthusiasm.add(new Entry(i * 5, data.get(i).get(2)));
+                ambition.add(new Entry(i * 5, data.get(i).get(3)));
+                energy.add(new Entry(i * 5, data.get(i).get(4)));
             }
             LineDataSet conf_dataset = new LineDataSet(confidence, "Confidence");
             conf_dataset.setColor(Color.GREEN);
             conf_dataset.setCircleColor(Color.GREEN);
+            conf_dataset.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             LineDataSet sats_dataset = new LineDataSet(satisfaction, "Satisfaction");
             sats_dataset.setColor(Color.BLUE);
             sats_dataset.setCircleColor(Color.BLUE);

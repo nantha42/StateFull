@@ -18,7 +18,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="84dp"
         android:layout_marginEnd="8dp"
-        android:text="State Full"
+        android:text="Illumine"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="40dp"

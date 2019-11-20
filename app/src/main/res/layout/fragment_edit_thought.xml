@@ -39,7 +39,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
-                        android:gravity="center"
+                        android:layout_marginLeft="8dp"
                         android:text="What's in your head?"
                         android:textColor="@color/alltextcolor"
                         android:textSize="16sp"
@@ -51,7 +51,7 @@
                     <EditText
                         android:id="@+id/thoughtbody"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="400dp"
                         android:layout_marginStart="8dp"
 
                         android:layout_marginEnd="8dp"
@@ -62,6 +62,7 @@
                         android:inputType="textMultiLine"
                         android:padding="8dp"
                         android:scrollbars="vertical"
+                        android:background="@android:color/transparent"
                         android:textStyle="bold"
                         android:textColor="@color/alltextcolor"
                         android:textColorHint="#888888"
@@ -89,7 +90,6 @@
                         android:id="@+id/what_color_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:paddingLeft="16dp"
                         android:text="What color will suit this thought?"
                         android:textColor="@color/alltextcolor"
@@ -159,43 +159,6 @@
 
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="36dp"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_lightbulb_outline_black_24dp" />
-
-                        <TextView
-                            android:id="@+id/tips"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Guidelines"
-                            android:textColor="@color/alltextcolor"
-                            android:textSize="20sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:textColor="@color/alltextcolor"
-                    android:text="Use the color that will suit your moods.\nFor Example, Choose color \nRed for thoughts that are negative,\n Green for positive thoughts and\n Blue for executive and action thoughts."
-                    android:textAlignment="center"
-                    android:textSize="16dp" />
             </LinearLayout>
         </ScrollView>
 

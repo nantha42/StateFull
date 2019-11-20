@@ -209,9 +209,13 @@ public class ReviewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_review, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.rvreview);
+        RecyclerView recyclerView1 = view.findViewById(R.id.rvevent);
         AdapterReview adapter = new AdapterReview(dayId);
+        AdapterEventReview adapter1 = new AdapterEventReview(dayId);
         recyclerView.setAdapter(adapter);
+        recyclerView1.setAdapter(adapter1);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
         averageChart = view.findViewById(R.id.rvpiecharttoday);
         dailyHistory = view.findViewById(R.id.rvbarcharttoday);
         TextView rdate = view.findViewById(R.id.reviewdate);

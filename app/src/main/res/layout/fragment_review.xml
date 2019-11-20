@@ -40,7 +40,6 @@
                     android:layout_height="360dp"
                     android:layout_below="@id/rvthoughtttile" />
             </RelativeLayout>
-
             <RelativeLayout
                 android:id="@+id/rvpiecharttodaylayout"
                 android:layout_width="match_parent"
@@ -89,6 +88,30 @@
                     android:layout_below="@id/rvbarchartText" />
 
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/analysiscolorbg"
+                android:layout_marginTop="16dp"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/rveventttile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Events on the Day"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvevent"
+                    android:layoutAnimation="@anim/layout_animation_fall_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="360dp"
+                    android:layout_below="@id/rveventttile" />
+            </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
     <LinearLayout

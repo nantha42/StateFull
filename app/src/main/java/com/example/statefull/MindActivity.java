@@ -39,6 +39,7 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
         View headerView = navigationView.getHeaderView(0);
         username = headerView.findViewById(R.id.username);
         username.setText(DatabaseManager.databaseManager.getUserName());
@@ -111,9 +112,9 @@ public class MindActivity extends AppCompatActivity implements NavigationView.On
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewDiaryFragment()).commit();
                     navigationView.setCheckedItem(R.id.nav_diary);
                     break;
-                case R.id.nav_events:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewEventsFragment()).commit();
-                    navigationView.setCheckedItem(R.id.nav_events);
+                case R.id.nav_evolution:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewEvolutionFragment()).commit();
+                    navigationView.setCheckedItem(R.id.nav_evolution);
                     break;
                 case R.id.nav_goals:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewGoalsFragment()).commit();

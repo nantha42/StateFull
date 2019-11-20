@@ -17,19 +17,19 @@
 
                     <item
                         android:id="@+id/nav_diary"
-                        android:icon="@drawable/ic_diary_24dp"
+                        android:icon="@drawable/ic_journal"
                         android:title="Journal" />
                     <item
-                        android:id="@+id/nav_events"
-                        android:icon="@drawable/ic_event_black_24dp"
-                        android:title="Events" />
+                        android:id="@+id/nav_evolution"
+                        android:icon="@drawable/ic_dna"
+                        android:title="Evolution" />
                     <item
                         android:id="@+id/nav_goals"
-                        android:icon="@drawable/ic_track_changes_black_24dp"
+                        android:icon="@drawable/ic_target"
                         android:title="Goals" />
                     <item
                         android:id="@+id/nav_insight"
-                        android:icon="@drawable/ic_hormones_black_24dp"
+                        android:icon="@drawable/ic_insight"
                         android:title="Insights" />
 
                 </group>
